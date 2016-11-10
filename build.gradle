@@ -1,0 +1,81 @@
+allprojects {
+    apply plugin: 'java'
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+    compileJava.options.fork = true
+	compileJava.options.forkOptions.executable = gradle.javacPath
+	
+	archivesBaseName = gradle.theName
+	group = gradle.theGroup
+	
+	repositories {
+	    mavenCentral()	
+	    maven {
+			url "http://repository.primefaces.org"
+		}
+	}
+	
+	gradle.projectsEvaluated {
+   		tasks.withType(JavaCompile) {
+       		options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
+    	}
+	}
+	
+	dependencies {
+		compile group: 'javax', name: 'javaee-api', version: '7.0'
+		compile group: 'log4j', name: 'log4j', version: '1.2.17'
+		compile group: 'org.hibernate', name: 'hibernate-core', version: '5.0.0.Final'
+		compile group: 'org.hibernate', name: 'hibernate-entitymanager', version: '5.0.0.Final'
+		compile group: 'org.hibernate', name: 'hibernate-infinispan', version: '5.0.0.Final'
+		compile group: 'org.hibernate', name: 'hibernate-annotations', version: '3.5.6-Final'
+		
+		compile group: 'org.jasypt', name: 'jasypt-hibernate4', version: '1.9.0'
+		//runtime 'org.hibernate:hibernate-search-orm:5.1.1.Final'
+	 	//runtime 'org.jasypt:jasypt-hibernate4:1.9.0'
+	 	
+	 	//compile group: 'net.bootsfaces', name: 'bootsfaces', version: '0.9.1'
+	 	//compile group: 'org.primefaces', name: 'primefaces', version: '6.0'
+	 	//compile group: 'org.primefaces.themes', name: 'bootstrap', version: '1.0.10'
+	 	//compile group: 'org.omnifaces', name: 'omnifaces', version: '2.5.1'
+	 	//compile group: 'javax.el', name: 'javax.el-api', version: '3.0.0'
+	 	//compile group: 'org.webjars', name: 'font-awesome', version: '4.6.3'
+	 	
+		
+	}
+	
+	configurations {
+	 runtime.exclude group: "org.slf4j", module: "slf4j-api"
+	 runtime.exclude group: "org.slf4j", module: "slf4j-parent"
+	 runtime.exclude group: "org.jboss", module: "jboss-parent"
+	 runtime.exclude group: "org.dom4j"
+	}
+}
+
+apply plugin: 'ear'
+apply plugin: 'war'
+
+archivesBaseName = gradle.theName
+group = gradle.theGroup
+
+
+task copyToLib(type: Copy) {
+    into "$buildDir/output/libs"
+    from configurations.runtime
+}
+
+dependencies {
+	
+	//earlib group: 'net.bootsfaces', name: 'bootsfaces', version: '0.9.1'
+	//earlib group: 'org.primefaces', name: 'primefaces', version: '6.0'
+	//earlib group: 'org.primefaces.themes', name: 'bootstrap', version: '1.0.10'
+	//earlib group: 'org.omnifaces', name: 'omnifaces', version: '2.5.1'
+	//earlib group: 'javax.el', name: 'javax.el-api', version: '3.0.0'
+	//earlib group: 'org.webjars', name: 'font-awesome', version: '4.6.3'
+	
+	deploy project(':ejb-reporting')
+    deploy project(path:':web-reporting', configuration:'archives')
+}
+
+ear{
+	libDirName 'APP-INF/lib'
+}

@@ -1,0 +1,11 @@
+include ':ejb-reporting',':web-reporting'
+//Edit this to point to where your javac is.
+gradle.ext.javacPath = '/usr/lib/jvm/jdk1.8.0_77/bin/javac'
+
+gradle.ext.theName = 'redpesa-reporting'
+rootProject.name = 'redpesa-reporting'
+gradle.ext.theGroup = 'redpesa-reporting'
+gradle.ext.theVersion = 1.0
+
+
+
