@@ -1,0 +1,4 @@
+gradle.ext.javacPath = '/usr/lib/jvm/jdk1.8.0_77/bin/javac'
+gradle.ext.theName = 'redpesa-reporting-war'
+gradle.ext.theGroup = 'redpesa'
+gradle.ext.theVersion = 1.0

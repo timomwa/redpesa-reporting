@@ -7,6 +7,9 @@
 	<persistence-unit name="redcross-reportingJARPU" transaction-type="JTA">
 		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 		<jta-data-source>java:/redpesa-reportingDS</jta-data-source>
+		<class>ke.co.technovation.entity.Role</class>
+		<class>ke.co.technovation.entity.User</class>
+		<class>ke.co.technovation.entity.UserRole</class>
 		<exclude-unlisted-classes>true</exclude-unlisted-classes>
 		<properties>
 			<property name="hibernate.hbm2ddl.auto" value="update" />

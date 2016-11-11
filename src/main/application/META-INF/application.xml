@@ -1,19 +1,19 @@
 <?xml version="1.0"?>
 <application xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/application_6.xsd" version="6">
   <description>Redpesa-reporting</description>
-  <display-name>redpesa-reporting</display-name>
+  <display-name>redpesa-reporting-1.0</display-name>
   <initialize-in-order>false</initialize-in-order>
   <module>
-    <java>redpesa-reporting.jar</java>
+    <java>redpesa-reporting-1.0.jar</java>
   </module>
   <module>
     <web>
-      <web-uri>redpesa-reporting.war</web-uri>
+      <web-uri>redpesa-reporting-1.0.war</web-uri>
       <context-root>/redpesa-reporting</context-root>
     </web>
   </module>
   <module>
-    <ejb>redpesa-reporting.jar</ejb>
+    <ejb>redpesa-reporting-1.0.jar</ejb>
   </module>
   <library-directory>APP-INF/lib</library-directory> 
 </application>
