@@ -16,5 +16,5 @@ hs_err_pid*
 .settings/
 bin/**/*
 build/**/*
-web-reporting/src/main/webapp/WEB-INF/shiro.ini
+#web-reporting/src/main/webapp/WEB-INF/shiro.ini
 

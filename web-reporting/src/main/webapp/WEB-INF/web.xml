@@ -27,6 +27,14 @@
 		<filter-name>ShiroFilter</filter-name>
 		<filter-class>org.apache.shiro.web.servlet.ShiroFilter</filter-class>
 	</filter>
+	<security-constraint>
+		<display-name>Restrict access to Facelets source code.</display-name>
+		<web-resource-collection>
+			<web-resource-name>Facelets</web-resource-name>
+			<url-pattern>*.xhtml</url-pattern>
+		</web-resource-collection>
+		<auth-constraint />
+	</security-constraint>
 	<filter-mapping>
 		<filter-name>ShiroFilter</filter-name>
 		<url-pattern>/*</url-pattern>
@@ -40,6 +48,6 @@
 		<location>/WEB-INF/errorpages/expired.xhtml</location>
 	</error-page>
 	<welcome-file-list>
-		<welcome-file>index.jsf</welcome-file>
+		<welcome-file>login.jsf</welcome-file>
 	</welcome-file-list>
 </web-app>

@@ -26,6 +26,7 @@ dependencies {
 	compile group: 'org.hibernate', name: 'hibernate-infinispan', version: '5.0.0.Final'
 	compile group: 'org.hibernate', name: 'hibernate-annotations', version: '3.5.6-Final'
 	providedCompile 'redpesa:redpesa-ejb:1.0'
+	providedCompile 'redpesa:redpesa-reporting-ejb:1.0'
 		
 }
 configurations {
