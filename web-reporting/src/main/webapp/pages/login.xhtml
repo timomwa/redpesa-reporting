@@ -1,0 +1,63 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" xmlns:b="http://bootsfaces.net/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<h:form id="loginForm" style="margin: auto; width: 50%; border: 0px solid green; padding: 5px;">
+		
+		
+				<b:row>
+					<b:column span="11" style-class="message">
+						<b:message id="message" for="login"
+							line-break-tag="&lt;p&gt;&lt;hr /&gt;&lt;/p&gt;" />
+					</b:column>
+					
+				</b:row>
+				
+				<b:row>
+					<b:column span="2">
+						<h:outputText value="Username:" for="username" />
+					</b:column>
+					<b:column span="9">
+						<b:inputText placeholder="Username" id="username"
+							value="#{loginBean.loginUsername}" ajax="true"
+							autocomplete="false" update="@(.message)">
+							<f:facet name="prepend">
+								<b:icon name="user" />
+							</f:facet>
+						</b:inputText>
+					</b:column>
+				</b:row>
+				<b:row tooltip="This password has fancy error messages.">
+					<b:column span="2" >
+						<h:outputText value="Password:" />
+					</b:column>
+					<b:column span="9">
+						<b:inputSecret placeholder="Password" id="password"
+							value="#{loginBean.loginPassword}" ajax="true"
+							autocomplete="false" update="@(.message)">
+							<f:facet name="prepend">
+								<b:iconAwesome name="key" />
+							</f:facet>
+						</b:inputSecret>
+					</b:column>
+					
+				</b:row>
+				
+				<b:row>
+					<b:column span="3" offset="2">
+						<b:commandButton id="login" value="login" onclick="ajax:loginBean.login()"
+							update="@form" look="primary" style="width:100%" />
+					</b:column>
+					<b:column  span="6" >
+						<b:commandButton value="password forgotten"
+							onclick="ajax:loginBean.forgotPassword()" update="@form"
+							look="primary" style="width:100%" />
+					</b:column>
+				</b:row>
+		
+	</h:form>
+	
+
+</ui:composition>

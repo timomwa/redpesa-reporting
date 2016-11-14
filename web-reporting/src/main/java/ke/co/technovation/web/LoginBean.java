@@ -1,5 +1,7 @@
 package ke.co.technovation.web;
 
+import java.io.IOException;
+
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
@@ -51,46 +53,66 @@ public class LoginBean {
     		
     		String receivedhash = encryptionEJB.hashPassword(loginPassword, loginUsername);
     		UsernamePasswordToken token = new UsernamePasswordToken(loginUsername, receivedhash);
-		    
+		    boolean loginsuccess = false;
     		try {
 		    	
 		    	token.setRememberMe(true);
 				currentUser.login( token );
 				User user = userEJB.findUserByUsername(loginUsername);
 	    		currentUser.getSession().setAttribute("user", user);
+	    		loginsuccess = true;
 	    		
-	    	    FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Successfully logged in.");
-	            FacesContext.getCurrentInstance().addMessage("loginForm:password", msg);
-	 
-		    } catch ( UnknownAccountException uae ) {
-		    	logger.error(uae.getMessage(), uae);
-			} catch ( IncorrectCredentialsException ice ) {
-				logger.error(ice.getMessage(), ice);
+	    	   
+	        	
 				
-			    FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "", "Incorrect credentials");
-		        FacesContext.getCurrentInstance().addMessage("loginForm:password", msg);
-		     
+		    } catch ( UnknownAccountException uae ) {
+		    	logger.error(uae.getMessage());
+			} catch ( IncorrectCredentialsException ice ) {
+				logger.error(ice.getMessage());
 			} catch ( LockedAccountException lae ) {
-				logger.error(lae.getMessage(), lae);
+				logger.error(lae.getMessage());
 			} catch ( AuthenticationException ae ) {
-				logger.error(ae.getMessage(), ae);
+				logger.error(ae.getMessage());
 			}catch(Exception e){
 				logger.error(e.getMessage(),e);
+			}
+    		logger.info("\n\t\tLogin Success :: "+loginsuccess);
+    		
+    		if(loginsuccess){
+    			
+    			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Successfully logged in.");
+ 	            FacesContext.getCurrentInstance().addMessage("loginForm:login", msg);
+ 	 
+ 	            try {
+					redirect("app.jsf");
+				} catch (IOException e) {
+					logger.error(e.getMessage(),e);
+				}
+    		}else{
+    			
+    		    FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "", "Incorrect credentials");
+		        FacesContext.getCurrentInstance().addMessage("loginForm:login", msg);
+		     
 			}
 		    
     	}else{
     		logger.info("\n\n USER IS CURRENTLY LOGGED IN! \n\n ");
+    		try {
+				redirect("app.jsf");
+			} catch (IOException e) {
+				logger.error(e.getMessage(),e);
+			}
         }
     	
-    	System.out.println( "\n\n\n currentUser--> "+currentUser);
-        if ("BootsFaces".equalsIgnoreCase(loginUsername) && "rocks!".equalsIgnoreCase(loginPassword)) {
-        
-        } else {
-        }
+    	
         
     }
  
-    public void forgotPassword() {
+    private void redirect(String url) throws IOException {
+    	FacesContext.getCurrentInstance().getExternalContext().redirect(url);
+	}
+
+	public void forgotPassword() {
         FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Default user name: BootsFaces");
         FacesContext.getCurrentInstance().addMessage("loginForm:username", msg);
         msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Default password: rocks!");

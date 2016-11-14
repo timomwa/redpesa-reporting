@@ -1,15 +1,67 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:b="http://primefaces.org/ui"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:p="http://primefaces.org/ui" xmlns:b="http://bootsfaces.net/ui">
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:bnu="http://bootsfaces.net/ui">
 <h:head>
-<title>Reporting: Red Cross Lottery</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link rel="apple-touch-icon" sizes="57x57" href="resources/images/apple-icon-57x57.png"/>
+	<link rel="apple-touch-icon" sizes="60x60" href="resources/images/apple-icon-60x60.png"/>
+	<link rel="apple-touch-icon" sizes="72x72" href="resources/images/apple-icon-72x72.png"/>
+	<link rel="apple-touch-icon" sizes="76x76" href="resources/images/apple-icon-76x76.png"/>
+	<link rel="apple-touch-icon" sizes="114x114" href="resources/images/apple-icon-114x114.png"/>
+	<link rel="apple-touch-icon" sizes="120x120" href="resources/images/apple-icon-120x120.png"/>
+	<link rel="apple-touch-icon" sizes="144x144" href="resources/images/apple-icon-144x144.png"/>
+	<link rel="apple-touch-icon" sizes="152x152" href="resources/images/apple-icon-152x152.png"/>
+	<link rel="apple-touch-icon" sizes="180x180" href="resources/images/apple-icon-180x180.png"/>
+	<link rel="icon" type="image/png" sizes="192x192"  href="resources/images/android-icon-192x192.png"/>
+	<link rel="icon" type="image/png" sizes="32x32" href="resources/images/favicon-32x32.png"/>
+	<link rel="icon" type="image/png" sizes="96x96" href="resources/images/favicon-96x96.png"/>
+	<link rel="icon" type="image/png" sizes="16x16" href="resources/images/favicon-16x16.png"/>
+	<link rel="manifest" href="resources/images/manifest.json"/>
+	<meta name="msapplication-TileColor" content="#ffffff"/>
+	<meta name="msapplication-TileImage" content="resources/images/ms-icon-144x144.png"/>
+	<meta name="theme-color" content="#ffffff"/>
+
+
+	<title>Technovation Ventures</title>
+	<f:facet name="last">
+		<h:outputStylesheet
+			name="css/customstyle.css"
+			position="last" />
+	</f:facet>
+	
+	<link rel="shortcut icon" type="image/x-icon" href="resources/images/favicon.ico"/>
+	
+	<h:outputScript name="js/Chart.min.js"/>
+	
+	<h:outputScript name="js/redpesareportingb.js"  />
 	
 </h:head>
-
 <h:body>
-<h:button value="TestButton"></h:button>
-</h:body>
 
+
+
+	<bnu:container>
+
+		<bnu:row>
+			<ui:include src="menu/mainmenu.xhtml" />
+		</bnu:row>
+
+		<bnu:row>
+			<bnu:panel class="content" id="techno_content">
+				<ui:include src="pages/#{pageBean.page}.xhtml" />
+			</bnu:panel>
+		</bnu:row>
+
+		<bnu:row>
+			<ui:include src="footer/footer.xhtml" />
+		</bnu:row>
+
+	</bnu:container>
+	
+</h:body>
 </html>

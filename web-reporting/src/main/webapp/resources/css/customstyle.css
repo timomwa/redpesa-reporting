@@ -1,0 +1,59 @@
+body {
+	padding-bottom: 70px !important;
+	padding-top: 70px !important;
+	background-color: #ffffff !important;
+	color: #141414 !important;
+}
+
+html {
+	background: transparent !important;
+}
+
+h1 {
+	color: #003C77 !important;
+}
+
+h2 {
+	color: #003C77 !important;
+}
+
+h3 {
+	color: #003C77 !important;
+}
+
+h4 {
+	color: #003C77 !important;
+}
+
+h5 {
+	color: #003C77 !important;
+}
+
+h6 {
+	color: #003C77 !important;
+}
+
+a {
+	color: #003C77 !important;
+}
+
+.technoblue {
+	color: #003C77 !important;
+}
+
+.homecarousel {
+	overflow: hidden !important;
+	position: relative !important;
+	min-height: 150px !important;
+	max-height: 150px !important;
+}
+
+.top-buffer {
+	margin-top: 20px;
+}
+
+canvas {
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	-ms-user-select: none;
+}

@@ -1,0 +1,73 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" xmlns:bnu="http://bootsfaces.net/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<bnu:navBar brand-img-style="height: 20px"
+		brand-img="resources/images/logo_only_.png" brandHref="/"
+		inverse="false" position="top" sticky="true"
+		style-class="navbar navbar-default navbar-fixed-top">
+
+		<bnu:container fluid="true" style-class="technoblue">
+			<h:form>
+				<bnu:navbarLinks>
+
+					<bnu:dropMenu value="Admin Panel">
+						<bnu:navLink value="User Management" href="#"></bnu:navLink>
+						<bnu:navLink value="Email Settings" href="#"></bnu:navLink>
+						<bnu:navLink value="Audit Trail Report" href="#"></bnu:navLink>
+						<bnu:navLink></bnu:navLink>
+						<bnu:navLink value="Bussiness shortcode Info" href="#"></bnu:navLink>
+						<bnu:navLink value="Initiator Account" href="#"></bnu:navLink>
+						<bnu:navLink value="Periodic Reporting Shedule" href="#"></bnu:navLink>
+					</bnu:dropMenu>
+
+
+					<bnu:dropMenu value="Real-time Monitor">
+						<bnu:navLink value="Same hour comparison - Inflow" href="#"></bnu:navLink>
+						<bnu:navLink value="Same hour comparison - Outflow" href="#"></bnu:navLink>
+						<bnu:navLink value="Per msisdn transaction count" href="#"></bnu:navLink>
+						<bnu:navLink value="Per account transaction count" href="#"></bnu:navLink>
+						<bnu:navLink value="Same hour paybill transaction comparison"
+							href="#"></bnu:navLink>
+					</bnu:dropMenu>
+
+
+					<bnu:dropMenu value="Mobile Money Queries">
+						<bnu:navLink value="Per MSISDN Transaction report" href="#"></bnu:navLink>
+						<bnu:navLink value="Detailed Mobile money Transaction - Inflow"
+							href="#"></bnu:navLink>
+						<bnu:navLink value="Detailed Mobile money Transaction - Outflow"
+							href="#"></bnu:navLink>
+					</bnu:dropMenu>
+
+					<bnu:navLink value="Report subscription"
+						onclick="ajax:pageBean.contactus()" update=":techno_content"></bnu:navLink>
+
+				</bnu:navbarLinks>
+				
+				
+				<bnu:navbarLinks pull="right">
+				<bnu:navLink value="    " href="#"></bnu:navLink>
+			</bnu:navbarLinks>
+			
+			</h:form>
+
+			<bnu:navbarLinks pull="right">
+				<bnu:dropMenu value="My Account">
+					<bnu:navLink></bnu:navLink>
+					<bnu:navLink header="Account Settings"></bnu:navLink>
+					<bnu:navLink value="Profile Information" href="#"></bnu:navLink>
+					<bnu:navLink value="Change Password" href="#"></bnu:navLink>
+					<bnu:navLink></bnu:navLink>
+					<bnu:navLink value="Logout" href="logout"></bnu:navLink>
+				</bnu:dropMenu>
+			</bnu:navbarLinks>
+
+		</bnu:container>
+
+
+	</bnu:navBar>
+
+</ui:composition>
