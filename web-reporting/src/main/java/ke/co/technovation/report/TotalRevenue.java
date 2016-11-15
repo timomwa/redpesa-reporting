@@ -12,17 +12,19 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
-import ke.co.technovation.ejb.HourToHourEJBI;
-@WebServlet("/hourtohour")
-public class HourToHourComparison  extends HttpServlet {
-	
+import ke.co.technovation.ejb.TotalRevenueEJBI;
+
+@WebServlet("/totalrevenue")
+public class TotalRevenue extends HttpServlet {
+
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -5703128119318296138L;
+	private static final long serialVersionUID = 802308207534383875L;
+
 
 	@EJB
-	private HourToHourEJBI hourtoHourEJB;
+	private TotalRevenueEJBI totalRevenueEJB;
 	
 	
 	private Logger logger = Logger.getLogger(getClass());
@@ -38,7 +40,7 @@ public class HourToHourComparison  extends HttpServlet {
 		PrintWriter pw = resp.getWriter();
 		
 		try{
-			String hour_to_hour = hourtoHourEJB.getStats();
+			String hour_to_hour = totalRevenueEJB.getStats();
 			
 			logger.info("\n\n\n stats-> "+hour_to_hour+"\n\n\n");
 			
@@ -57,5 +59,4 @@ public class HourToHourComparison  extends HttpServlet {
 			}
 		}
 	}
-
 }

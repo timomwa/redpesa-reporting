@@ -4,6 +4,7 @@ function formatD(dgt){
 }
 
 window.chartColors = {
+	mycolor: 'rgba(151,187,205,0.8)',
 	red: 'rgb(255, 99, 132)',
 	orange: 'rgb(255, 159, 64)',
 	yellow: 'rgb(255, 205, 86)',
@@ -12,29 +13,27 @@ window.chartColors = {
 	purple: 'rgb(153, 102, 255)',
 	grey: 'rgb(231,233,237)'
 };
-var xx = 0;
-window.randomScalingFactor = function() {
-	//xx++;
-	return (Math.random() > 0.5 ? 1.0 : -1.0) * Math.round(Math.random() * 100);
-}
 
-
-var config = {
+var configHourToHour = {
     type: 'line',
     data: {
-        labels: [],
+        labels: [0],
         datasets: [{
             label: "Revenue (Kes.)",
             backgroundColor: window.chartColors.red,
             borderColor: window.chartColors.red,
-            data: [],
+            data: [0],
             fill: false,
         }]
     },
     options: {
         responsive: true,
         tooltipTemplate : "<%if (label){%> <%=label%> Revenue : <%}%>KES. <%=formatD(value)%>",
-		title:{
+        scaleLabel: function (dgt) {
+            return dgt.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,');
+        },
+        scaleBeginAtZero: false,
+        title:{
             display:true,
             text:'Hour-to-hour Revenue Comparison'
         },
@@ -59,52 +58,43 @@ var config = {
                 scaleLabel: {
                     display: true,
                     labelString: 'Revenue (Kes.)'
+                },
+                ticks: {
+                    callback: function(label, index, labels) {
+                    	label = label/1000;
+                    	var formattednum = parseFloat(label, 10).toFixed(1).replace(/(\d)(?=(\d{3})+\.)/g, "$1,").toString();
+                        return formattednum+' k';
+                    }
+                },
+                scaleLabel: {
+                    display: true,
+                    labelString:  'Revenue(Kes.) 1k = 1000'
                 }
             }]
         }
     }
 };
 
-window.onload = function() {
-    var ctx = document.getElementById("canvas").getContext("2d");
-    window.myLine = new Chart(ctx, config);
-    updateGraph();
-};
-
 var updateGraph  = function() {
-	console.log('here');
-   /* config.data.datasets.forEach(function(dataset) {
-    	 if (config.data.datasets.length > 0) {
-    	        var month = MONTHS[config.data.labels.length % MONTHS.length];
-    	        config.data.labels.push(month);
-
-    	        config.data.datasets.forEach(function(dataset) {
-    	            dataset.data.push(randomScalingFactor());
-    	        });
-    	 }
-
-    });
-*/
 	$.ajax({
     	url: 'hourtohour',
     	cache: false,
     	data: {},
     	dataType: 'json',
-    	success: function(data, textstatus, jqXHR) {
-    		config.data.labels = data.labels;
-    		config.data.datasets[0].data = data.datasets[0].data;
+    	success: function(respdata, textstatus, jqXHR) {
+    		configHourToHour.data.labels = respdata.labels;
+    		configHourToHour.data.datasets[0].data = respdata.datasets[0].data;
     	},
-    	
     });
 	
     if(window.myLine){
     	window.myLine.update();
     }
     
-    
-    
-    
-    setTimeout(updateGraph, 10000);
+    setTimeout(updateGraph, 1950);
 };
 
-//setInterval(updateGraph,1000);
+var initHourlyRevenue = function(){
+	var ctx = document.getElementById("canvas").getContext("2d");
+    window.myLine = new Chart(ctx, configHourToHour);
+}

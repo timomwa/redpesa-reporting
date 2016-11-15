@@ -17,7 +17,7 @@ import ke.co.technovation.entity.User;
 @Startup
 public class InitializationEJB {
 	
-	private static final String ADMIN_USERNAME = "admin";
+	private static final String ADMIN_USERNAME = "lottoadmin";
 
 	private Logger logger = Logger.getLogger(getClass());
 	

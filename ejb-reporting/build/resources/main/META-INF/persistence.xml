@@ -16,7 +16,7 @@
 			<property name="hibernate.show_sql" value="true" />
 			<!--property name="hibernate.default_schema" value="red_cross"/-->
 			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />
-            
+            <property name="hibernate.connection.release_mode" value="after_transaction" />
 		</properties>
 	</persistence-unit>
 	
@@ -34,7 +34,7 @@
 			<property name="hibernate.show_sql" value="false" />
 			<!--property name="hibernate.default_schema" value="cmp"/-->
 			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />
-            
+            <property name="hibernate.connection.release_mode" value="after_transaction" />
 		</properties>
 	</persistence-unit>
 	

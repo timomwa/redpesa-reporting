@@ -6,4 +6,6 @@ public interface MpesaInDAOI extends GenericDAOI<MpesaIn, Long> {
 
 	public String getHistoricalRecords();
 
+	public String gettotalRevenueToDate();
+
 }
