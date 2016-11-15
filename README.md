@@ -4,5 +4,5 @@ Reporting Module for RedPesa
 
 #How To run
 ```
-clean ear
+gradle clean ear
 ```
