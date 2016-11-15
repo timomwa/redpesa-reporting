@@ -36,7 +36,7 @@ var config = {
         tooltipTemplate : "<%if (label){%> <%=label%> Revenue : <%}%>KES. <%=formatD(value)%>",
 		title:{
             display:true,
-            text:'Mpesa Revenue'
+            text:'Hour-to-hour Revenue Comparison'
         },
         tooltips: {
             mode: 'index',
@@ -58,7 +58,7 @@ var config = {
                 display: true,
                 scaleLabel: {
                     display: true,
-                    labelString: 'Transactions'
+                    labelString: 'Revenue (Kes.)'
                 }
             }]
         }
@@ -91,10 +91,6 @@ var updateGraph  = function() {
     	data: {},
     	dataType: 'json',
     	success: function(data, textstatus, jqXHR) {
-    		console.log(textstatus);
-    		console.log(data.datasets[0].data);
-    		console.log(data.labels);
-    		
     		config.data.labels = data.labels;
     		config.data.datasets[0].data = data.datasets[0].data;
     	},
@@ -108,7 +104,7 @@ var updateGraph  = function() {
     
     
     
-    setTimeout(updateGraph, 5000);
+    setTimeout(updateGraph, 10000);
 };
 
 //setInterval(updateGraph,1000);
