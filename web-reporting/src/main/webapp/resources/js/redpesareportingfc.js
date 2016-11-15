@@ -1,3 +1,8 @@
+function formatD(dgt){
+	var ddd =  dgt.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,');
+	return ddd;
+}
+
 window.chartColors = {
 	red: 'rgb(255, 99, 132)',
 	orange: 'rgb(255, 159, 64)',
@@ -14,47 +19,24 @@ window.randomScalingFactor = function() {
 }
 
 
-
-var MONTHS = ["Janary", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 var config = {
     type: 'line',
     data: {
-        labels: ["Janary", "February", "March", "April", "May", "June", "July"],
+        labels: [],
         datasets: [{
-            label: "Dataset 1",
+            label: "Revenue (Kes.)",
             backgroundColor: window.chartColors.red,
             borderColor: window.chartColors.red,
-            data: [
-                1, 
-                2, 
-                3, 
-                4, 
-                5, 
-                6, 
-                7
-            ],
-            fill: true,
-        }, {
-            label: "Dataset 2",
-            fill: true,
-            backgroundColor: window.chartColors.blue,
-            borderColor: window.chartColors.blue,
-            data: [
-                8, 
-                9, 
-                10, 
-                11, 
-                12, 
-                13, 
-                14
-            ],
+            data: [],
+            fill: false,
         }]
     },
     options: {
         responsive: true,
-        title:{
+        tooltipTemplate : "<%if (label){%> <%=label%> Revenue : <%}%>KES. <%=formatD(value)%>",
+		title:{
             display:true,
-            text:'Mpesa Trx'
+            text:'Mpesa Revenue'
         },
         tooltips: {
             mode: 'index',
@@ -103,10 +85,30 @@ var updateGraph  = function() {
 
     });
 */
+	$.ajax({
+    	url: 'hourtohour',
+    	cache: false,
+    	data: {},
+    	dataType: 'json',
+    	success: function(data, textstatus, jqXHR) {
+    		console.log(textstatus);
+    		console.log(data.datasets[0].data);
+    		console.log(data.labels);
+    		
+    		config.data.labels = data.labels;
+    		config.data.datasets[0].data = data.datasets[0].data;
+    	},
+    	
+    });
+	
     if(window.myLine){
     	window.myLine.update();
     }
-    setTimeout(updateGraph, 1000);
+    
+    
+    
+    
+    setTimeout(updateGraph, 5000);
 };
 
 //setInterval(updateGraph,1000);

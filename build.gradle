@@ -39,6 +39,7 @@ dependencies {
 	//earlib group: 'org.primefaces.themes', name: 'bootstrap', version: '1.0.10'
 	//earlib group: 'javax.el', name: 'javax.el-api', version: '3.0.0'
 	//earlib group: 'org.webjars', name: 'font-awesome', version: '4.6.3'
+	earlib group: 'org.json', name: 'json', version: '20160810'
 	
 	 	
 	earlib ('redpesa:redpesa-ejb:1.0'){
