@@ -41,10 +41,6 @@ public class TotalRevenue extends HttpServlet {
 		
 		try{
 			String hour_to_hour = totalRevenueEJB.getStats();
-			
-			logger.info("\n\n\n stats-> "+hour_to_hour+"\n\n\n");
-			
-			
 			resp.setContentType("application/json");
 			pw.println(hour_to_hour);
 			
