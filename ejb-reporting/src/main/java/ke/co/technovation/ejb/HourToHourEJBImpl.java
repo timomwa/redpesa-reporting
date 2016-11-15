@@ -18,7 +18,6 @@ public class HourToHourEJBImpl implements HourToHourEJBI {
 	
 	public String getStats(){
 		String stats =  mpesaDAOI.getHistoricalRecords();
-		logger.info("\n\n\n stats-> "+stats+"\n\n\n");
 		return stats;
 	}
 	
