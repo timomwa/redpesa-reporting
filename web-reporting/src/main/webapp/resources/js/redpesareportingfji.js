@@ -1,11 +1,27 @@
-var configTotalRev = {
+function formatD(dgt){
+	var ddd =  dgt.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,');
+	return ddd;
+}
+
+window.chartColors = {
+	mycolor: 'rgba(151,187,205,0.8)',
+	red: 'rgb(255, 99, 132)',
+	orange: 'rgb(255, 159, 64)',
+	yellow: 'rgb(255, 205, 86)',
+	green: 'rgb(75, 192, 192)',
+	blue: 'rgb(54, 162, 235)',
+	purple: 'rgb(153, 102, 255)',
+	grey: 'rgb(231,233,237)'
+};
+
+var configHourToHour = {
     type: 'line',
     data: {
         labels: [0],
         datasets: [{
-            label: "Accumulatived Revenue (Kes.)",
-            backgroundColor: window.chartColors.mycolor,
-            borderColor: window.chartColors.mycolor,
+            label: "Revenue (Kes.)",
+            backgroundColor: window.chartColors.red,
+            borderColor: window.chartColors.red,
             data: [0],
             fill: false,
         }]
@@ -19,7 +35,7 @@ var configTotalRev = {
         scaleBeginAtZero: false,
         title:{
             display:true,
-            text:'Accumulated Revenue'
+            text:'Hour-to-hour Revenue Comparison'
         },
         tooltips: {
             mode: 'index',
@@ -34,7 +50,7 @@ var configTotalRev = {
                 display: true,
                 scaleLabel: {
                     display: true,
-                    labelString: 'Day'
+                    labelString: 'Hour'
                 }
             }],
             yAxes: [{
@@ -52,44 +68,36 @@ var configTotalRev = {
                 },
                 scaleLabel: {
                     display: true,
-                    labelString: 'Revenue(Kes.) 1k = 1000'
+                    labelString:  'Revenue(Kes.) 1k = 1000'
                 }
             }]
         }
     }
 };
 
-
-
-var updateTotalRevenueGraph  = function() {
+var updateGraph  = function() {
 	$.ajax({
-    	url: 'totalrevenue',
+    	url: '/redpesa-reporting/hourtohour',
     	cache: false,
     	data: {},
     	dataType: 'json',
     	success: function(respdata, textstatus, jqXHR) {
-    		configTotalRev.data.labels = respdata.labels;
-    		configTotalRev.data.datasets[0].data = respdata.datasets[0].data;
+    		configHourToHour.data.labels = respdata.labels;
+    		configHourToHour.data.datasets[0].data = respdata.datasets[0].data;
     	},
-    	
     });
 	
-    if(window.totalrev_graph){
-    	window.totalrev_graph.update();
+    if(window.myLine){
+    	window.myLine.update();
     }
     
-    setTimeout(updateTotalRevenueGraph, 1000);
+    setTimeout(updateGraph, 1950);
 };
 
-var initTotalRevenue = function(){
-	var ctx0 = document.getElementById("canvastotalrevenue").getContext("2d");
-    window.totalrev_graph = new Chart(ctx0, configTotalRev);
+var initHourlyRevenue = function(){
+	var canvas_ = document.getElementById("canvas");
+	if(canvas_){
+		var ctx = canvas_.getContext("2d");
+		window.myLine = new Chart(ctx, configHourToHour);
+	}
 }
-
-window.onload = function() {
-	initTotalRevenue();
-	initHourlyRevenue();
-    
-    updateGraph();
-    updateTotalRevenueGraph();
-};

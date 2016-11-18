@@ -34,16 +34,16 @@ public class ReportSample extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
 		ByteArrayOutputStream out = null;
-		ServletOutputStream pw = null;
+		ServletOutputStream outputStream = null;
 		
 		try{
 			
-			pw = resp.getOutputStream();
+			outputStream = resp.getOutputStream();
 			out = reportSampleEJBI.getSampleReport();
 			resp.setContentType(MimeConstants.MIME_PDF);
 		    resp.setContentLengthLong( out.size() );
-		    pw.write(out.toByteArray());
-		    pw.flush();
+		    outputStream.write(out.toByteArray());
+		    outputStream.flush();
 		    
 		}catch(Exception e){
 			logger.error(e.getMessage(), e);
@@ -55,8 +55,8 @@ public class ReportSample extends HttpServlet {
 				logger.error(e.getMessage(), e);
 			}
 			try{
-				if(pw!=null)
-					pw.close();
+				if(outputStream!=null)
+					outputStream.close();
 			}catch(Exception e){
 				logger.error(e.getMessage(), e);
 			}

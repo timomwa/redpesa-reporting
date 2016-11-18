@@ -1,9 +1,12 @@
 package ke.co.technovation.dao;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.text.DateFormat;
 import java.text.NumberFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -18,6 +21,8 @@ import org.json.JSONObject;
 
 import co.ke.technovation.entity.MpesaIn;
 import ke.co.technovation.constants.AppPropertyHolder;
+import ke.co.technovation.dto.MsisdnTransactionsDTO;
+import ke.co.technovation.dto.QueryDTO;
 
 public class MpesaInDAOImpl extends GenericDAOImpl<MpesaIn, Long> implements MpesaInDAOI {
 	
@@ -25,10 +30,64 @@ public class MpesaInDAOImpl extends GenericDAOImpl<MpesaIn, Long> implements Mpe
 	private EntityManager entitiManager;
 	
 	private SimpleDateFormat formatDayOfMonth  = new SimpleDateFormat("d");
+	private DateFormat formatter = new SimpleDateFormat("yyyy/MM/dd/"); 
 	private Logger logger = Logger.getLogger(getClass());
 	private NumberFormat nf = NumberFormat.getInstance();//Be careful only available in Java 8
 	
-	
+	@SuppressWarnings({ "unused", "unchecked" })
+	@Override
+	public List<MsisdnTransactionsDTO> getTransactions(QueryDTO queryDTO) {
+		
+		List<MsisdnTransactionsDTO> transactions = new ArrayList<MsisdnTransactionsDTO>();
+		
+		try{
+			String qry = "SELECT "
+					+ "count(*), "
+					+ "date(transTime), "
+					+ "msisdn "
+					+ "from MpesaIn "
+					+ "WHERE "
+					+ "msisdn like :msisdn";
+			
+			if(queryDTO.getDatefrom()!=null && queryDTO.getDateto()!=null){
+				qry = qry+" AND date(transTime) between date(:fromTime) and date(:toTime)";
+			}else if(queryDTO.getDatefrom()!=null && queryDTO.getDateto()==null){
+				qry = qry+" AND date(transTime) between date(:fromTime) and date(:toTime)";
+				queryDTO.setDateto(new Date());
+			}
+			if(queryDTO.getDateto()!=null && queryDTO.getDatefrom()==null){
+				qry = qry+" AND date(transTime) <= date(:thisTS) ";
+			}
+			qry = qry + " GROUP by date(transTime) , msisdn ORDER BY date(transTime) ASC";
+			
+			Query preparedQuery = entitiManager.createQuery(qry);
+			preparedQuery.setParameter("msisdn", "%"+queryDTO.getMsisdn()+"%");
+			
+			if(queryDTO.getDateto()!=null && queryDTO.getDatefrom()==null){
+				preparedQuery.setParameter("thisTS", queryDTO.getDateto());
+			}else if(queryDTO.getDatefrom()!=null && queryDTO.getDateto()!=null){
+				preparedQuery.setParameter("fromTime", queryDTO.getDatefrom());
+				preparedQuery.setParameter("toTime", queryDTO.getDateto());
+			}
+			
+			List<Object[]> mpesaRecs = preparedQuery.getResultList();
+			
+			if(mpesaRecs!=null && mpesaRecs.size()>0){
+				for(Object[] row : mpesaRecs){
+					MsisdnTransactionsDTO msisdntx = new MsisdnTransactionsDTO();
+					
+					msisdntx.setDate( (Date)row[1] );
+					msisdntx.setMsisdn( (String) row[2] );
+					msisdntx.setTransactioncount( ((Long)row[0])  );
+					transactions.add(msisdntx);
+				}
+			}
+		
+		}catch(NoResultException nre){
+			logger.error("Could not find result for query params -> "+queryDTO);
+		}
+		return transactions;
+	}
 	
 	@SuppressWarnings("unchecked")
 	@Override
@@ -157,5 +216,7 @@ public class MpesaInDAOImpl extends GenericDAOImpl<MpesaIn, Long> implements Mpe
 	        return "th";
 	    }
 	}
+
+	
 
 }

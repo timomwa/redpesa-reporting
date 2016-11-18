@@ -24,7 +24,7 @@ import ke.co.technovation.constants.AppPropertyHolder;
 @Stateless
 public class ReportSampleEJBImpl implements ReportSampleEJBI {
 	
-	private static final String REPORT_FOLDER = AppPropertyHolder.REPORT_TEMPLATE_FOLDER + "/";
+	public static final String REPORT_FOLDER = AppPropertyHolder.REPORT_TEMPLATE_FOLDER + "/";
 	
 	Logger logger = Logger.getLogger(getClass());
 
