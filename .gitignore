@@ -18,3 +18,6 @@ bin/**/*
 build/**/*
 #web-reporting/src/main/webapp/WEB-INF/shiro.ini
 
+/.gradle/
+/bin/
+/build/

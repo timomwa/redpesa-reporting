@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" xmlns:b="http://bootsfaces.net/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:body>
+
+	<ui:composition>
+		<h1>Per Msisdn Transaction Report k</h1>
+		<h:form id="searchForm">
+			<b:row>
+				<b:column span="7" style-class="message">
+					<b:message id="messagex"  for="searchbtn"
+						line-break-tag="&lt;p&gt;&lt;hr /&gt;&lt;/p&gt;" />
+				</b:column>
+			</b:row>
+			
+			<b:row>
+				<b:column span="2">
+					<h:outputText value="Msisdn:" for="msisdn" />
+				</b:column>
+				<b:column span="5">
+					<b:inputText placeholder="Msisdn" id="msisdn"
+						value="#{searchBean.msisdn}" ajax="true" autocomplete="false" 
+						update="@(.messagex)">
+						<f:facet name="prepend">
+							<b:icon name="iphone" />
+						</f:facet>
+					</b:inputText>
+				</b:column>
+			</b:row>
+			
+			<b:row>
+				<b:column span="2">
+					<h:outputText value="Date from" for="datefrom"/>
+				</b:column>
+				<b:column span="5">
+					<b:datepicker placeholder="Date From" mode="icon-popup" value="#{searchBean.datefrom}"/>
+				</b:column>
+			</b:row>
+			
+			<b:row>
+				<b:column span="2">
+					<h:outputText value="Date to" for="dateto"/>
+				</b:column>
+				<b:column span="5">
+					<b:datepicker  placeholder="Date To" mode="icon-popup" value="#{searchBean.dateto}"/>
+				</b:column>
+			</b:row>
+
+			<b:row>
+				<b:column span="3" offset="2">
+					<b:commandButton id="searchbtn" value="search" update="@form"
+						onclick="ajax:searchBean.search()" look="primary"
+						style="width:100%" />
+				</b:column>
+			</b:row>
+
+		</h:form>
+
+	</ui:composition>
+
+</h:body>
+</html>

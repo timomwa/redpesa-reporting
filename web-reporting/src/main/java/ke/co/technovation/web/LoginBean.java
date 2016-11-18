@@ -1,6 +1,7 @@
 package ke.co.technovation.web;
 
 import java.io.IOException;
+import java.io.Serializable;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
@@ -24,7 +25,7 @@ import ke.co.technovation.entity.User;
 
 @ManagedBean
 @RequestScoped
-public class LoginBean {
+public class LoginBean implements Serializable {
 	
 	@EJB
 	private EncryptionEJBI encryptionEJB;

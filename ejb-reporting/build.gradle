@@ -24,6 +24,7 @@ dependencies {
 	compile group: 'org.jasypt', name: 'jasypt-hibernate4', version: '1.9.0'
 	compile group: 'redpesa', name: 'redpesa-ejb', version: '1.0'
 	compile group: 'org.json', name: 'json', version: '20160810'
+	compile group: 'org.apache.xmlgraphics', name: 'fop', version: '2.1'
 }
 	
 configurations {

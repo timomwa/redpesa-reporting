@@ -5,7 +5,7 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 
 	<bnu:navBar brand-img-style="height: 20px"
-		brand-img="resources/images/statistics.png" brandHref="/redpesa-reporting/app.jsf"
+		brand-img="#{pageBean.approot}/resources/images/statistics.png" brandHref="/redpesa-reporting/app.jsf"
 		inverse="false" position="top" sticky="true"
 		style-class="navbar navbar-default navbar-fixed-top">
 
@@ -14,36 +14,62 @@
 				<bnu:navbarLinks>
 
 					<bnu:dropMenu value="Admin Panel">
-						<bnu:navLink value="User Management" href="#"></bnu:navLink>
-						<bnu:navLink value="Email Settings" href="#"></bnu:navLink>
-						<bnu:navLink value="Audit Trail Report" href="#"></bnu:navLink>
+						<bnu:navLink value="User Management" 
+							onclick="ajax:pageBean.userManagement()" 
+							update=":templatecontent"></bnu:navLink>
+						<bnu:navLink value="Email Settings" 
+							onclick="ajax:pageBean.emailSettings()" 
+							update=":templatecontent"></bnu:navLink>
+						<bnu:navLink value="Audit Trail Report" 
+							onclick="ajax:pageBean.auditTrailReport()" 
+							update=":templatecontent"></bnu:navLink>
 						<bnu:navLink></bnu:navLink>
-						<bnu:navLink value="Bussiness shortcode Info" href="#"></bnu:navLink>
-						<bnu:navLink value="Initiator Account" href="#"></bnu:navLink>
-						<bnu:navLink value="Periodic Reporting Shedule" href="#"></bnu:navLink>
+						<bnu:navLink value="Bussiness shortcode Info" 
+							onclick="ajax:pageBean.bussinessShortcodeInfo()" 
+							update=":templatecontent"></bnu:navLink>
+						<bnu:navLink value="Initiator Account" 
+							onclick="ajax:pageBean.initiatorAccount()" 
+							update=":templatecontent"></bnu:navLink>
+						<bnu:navLink value="Periodic Reporting Shedule" 
+							onclick="ajax:pageBean.periodicReportingSchedule()" 
+							update=":templatecontent"></bnu:navLink>
 					</bnu:dropMenu>
 
 
 					<bnu:dropMenu value="Real-time Monitor">
-						<bnu:navLink value="Same hour comparison - Inflow" href="#"></bnu:navLink>
-						<bnu:navLink value="Same hour comparison - Outflow" href="#"></bnu:navLink>
-						<bnu:navLink value="Per msisdn transaction count" href="#"></bnu:navLink>
-						<bnu:navLink value="Per account transaction count" href="#"></bnu:navLink>
+						<bnu:navLink value="Same hour comparison - Inflow" 
+							onclick="ajax:pageBean.sameHourComparisonInflow()" 
+							update=":templatecontent"></bnu:navLink>
+						<bnu:navLink value="Same hour comparison - Outflow" 
+							onclick="ajax:pageBean.sameHourComparisonOutflow()" 
+							update=":templatecontent"></bnu:navLink>
+						<bnu:navLink value="Per msisdn transaction count"
+							onclick="ajax:pageBean.perMsisdnTransactionCount()" 
+							update=":templatecontent"></bnu:navLink>
+						<bnu:navLink value="Per account transaction count" 
+							onclick="ajax:pageBean.perAccountTransactionCount()" 
+							update=":templatecontent"></bnu:navLink>
 						<bnu:navLink value="Same hour paybill transaction comparison"
-							href="#"></bnu:navLink>
+							onclick="ajax:pageBean.sameHourPaybillTransactionComparison()" 
+							update=":templatecontent"></bnu:navLink>
 					</bnu:dropMenu>
 
 
 					<bnu:dropMenu value="Mobile Money Queries">
-						<bnu:navLink value="Per MSISDN Transaction report" href="#"></bnu:navLink>
+						<bnu:navLink  value="Per MSISDN Transaction report" 
+							onclick="ajax:pageBean.perMsisdnTransactionReport()" 
+							href="#{pageBean.approot}/reporting/perMsisdnTransactionReport.jsf"></bnu:navLink>
 						<bnu:navLink value="Detailed Mobile money Transaction - Inflow"
-							href="#"></bnu:navLink>
+							onclick="ajax:pageBean.detailedMobileMoneyInflow()" 
+							update=":templatecontent"></bnu:navLink>
 						<bnu:navLink value="Detailed Mobile money Transaction - Outflow"
-							href="#"></bnu:navLink>
+							onclick="ajax:pageBean.detailedMobileMoneyOutflow()" 
+							update=":templatecontent"></bnu:navLink>
 					</bnu:dropMenu>
 
 					<bnu:navLink value="Report subscription"
-						href="#" update=":techno_content"></bnu:navLink>
+						onclick="ajax:pageBean.reportSubscription()" 
+						update=":templatecontent"></bnu:navLink>
 
 				</bnu:navbarLinks>
 				
@@ -58,10 +84,14 @@
 				<bnu:dropMenu value="My Account">
 					<bnu:navLink></bnu:navLink>
 					<bnu:navLink header="Account Settings"></bnu:navLink>
-					<bnu:navLink value="Profile Information" href="#"></bnu:navLink>
-					<bnu:navLink value="Change Password" href="#"></bnu:navLink>
+					<bnu:navLink value="Profile Information" 
+						onclick="ajax:pageBean.profileInfo()" 
+						update=":templatecontent"></bnu:navLink>
+					<bnu:navLink value="Change Password" 
+						onclick="ajax:pageBean.changePassword()" 
+						update=":templatecontent"></bnu:navLink>
 					<bnu:navLink></bnu:navLink>
-					<bnu:navLink value="Logout" href="logout"></bnu:navLink>
+					<bnu:navLink value="Logout" href="#{pageBean.approot}/logout"></bnu:navLink>
 				</bnu:dropMenu>
 			</bnu:navbarLinks>
 

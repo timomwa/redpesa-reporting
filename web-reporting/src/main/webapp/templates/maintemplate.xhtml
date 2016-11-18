@@ -1,0 +1,83 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" 
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link rel="apple-touch-icon" sizes="57x57"
+		href="resources/images/apple-icon-57x57.png" />
+	<link rel="apple-touch-icon" sizes="60x60"
+		href="resources/images/apple-icon-60x60.png" />
+	<link rel="apple-touch-icon" sizes="72x72"
+		href="resources/images/apple-icon-72x72.png" />
+	<link rel="apple-touch-icon" sizes="76x76"
+		href="resources/images/apple-icon-76x76.png" />
+	<link rel="apple-touch-icon" sizes="114x114"
+		href="resources/images/apple-icon-114x114.png" />
+	<link rel="apple-touch-icon" sizes="120x120"
+		href="resources/images/apple-icon-120x120.png" />
+	<link rel="apple-touch-icon" sizes="144x144"
+		href="resources/images/apple-icon-144x144.png" />
+	<link rel="apple-touch-icon" sizes="152x152"
+		href="resources/images/apple-icon-152x152.png" />
+	<link rel="apple-touch-icon" sizes="180x180"
+		href="resources/images/apple-icon-180x180.png" />
+	<link rel="icon" type="image/png" sizes="192x192"
+		href="resources/images/android-icon-192x192.png" />
+	<link rel="icon" type="image/png" sizes="32x32"
+		href="resources/images/favicon-32x32.png" />
+	<link rel="icon" type="image/png" sizes="96x96"
+		href="resources/images/favicon-96x96.png" />
+	<link rel="icon" type="image/png" sizes="16x16"
+		href="resources/images/favicon-16x16.png" />
+	<link rel="manifest" href="resources/images/manifest.json" />
+	<meta name="msapplication-TileColor" content="#ffffff" />
+	<meta name="msapplication-TileImage"
+		content="resources/images/ms-icon-144x144.png" />
+	<meta name="theme-color" content="#ffffff" />
+
+	<title>Mobile Money Reporting Tool (MMRT)</title>
+	<f:facet name="last">
+		<h:outputStylesheet name="css/customstyle.css" position="last" />
+	</f:facet>
+
+	<link rel="shortcut icon" type="image/x-icon"
+		href="resources/images/favicon.ico" />
+
+	<h:outputScript name="js/Chart.min.js" />
+
+	<h:outputScript name="js/redpesareportingfjf.js" />
+	<h:outputScript name="js/totalrevenuejf.js" />
+
+</h:head>
+<h:body id="templatebody">
+
+	<div id="templatepage">
+
+		<b:container >
+
+			<b:row>
+				<ui:insert name="topmenu" />
+			</b:row>
+
+			<b:row>
+				<b:panel class="content"  id="templatecontent">
+					<ui:insert name="content" />
+				</b:panel>
+			</b:row>
+
+			<b:row>
+				<ui:insert name="footer" />
+			</b:row>
+
+		</b:container>
+		
+	</div>
+</h:body>
+</html>
