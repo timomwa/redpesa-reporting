@@ -265,7 +265,7 @@ public class MpesaInDAOImpl extends GenericDAOImpl<MpesaIn, Long> implements Mpe
 	public String convertToPrettyFormat(Date date){
 		int day = Integer.parseInt(formatDayOfMonth.format(date));
 		String suff  = getDayNumberSuffix(day);
-		DateFormat prettier_df = new SimpleDateFormat("d'"+suff+"' E MMM");
+		DateFormat prettier_df = new SimpleDateFormat("d'"+suff+"' MMM");
 	    return prettier_df.format(date);
 	}
 	

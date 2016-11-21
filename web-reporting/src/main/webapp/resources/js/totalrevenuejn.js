@@ -1,15 +1,9 @@
-var dailyavgrev = {
+var configTotalRev = {
     type: 'line',
     data: {
         labels: [0],
         datasets: [{
-            label: "Daily Avg. Revenue (Kes.)",
-            backgroundColor: window.chartColors.green,
-            borderColor: window.chartColors.green,
-            data: [0],
-            fill: false,
-        },{
-            label: "Daily Revenue (Kes.)",
+            label: "Accumulatived Revenue (Kes.)",
             backgroundColor: window.chartColors.mycolor,
             borderColor: window.chartColors.mycolor,
             data: [0],
@@ -18,14 +12,14 @@ var dailyavgrev = {
     },
     options: {
         responsive: true,
-        tooltipTemplate : "<%if (label){%> <%=label%> Revenue : <%}%>KES. <%=formatD(value)%>",
-        scaleLabel: function (dgt) {
-            return dgt.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");// dgt.toLocaleString();//dgt.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,');
+        tooltipTemplate : "<%if (label){%> <%=label%> Revenue : <%}%>Kes. <%=formatD(value)%>",
+		scaleLabel: function (dgt) {
+            return dgt.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,').toString();
         },
         scaleBeginAtZero: false,
         title:{
             display:true,
-            text:'Avg. Revenue'
+            text:'Accumulated Revenue'
         },
         tooltips: {
             mode: 'index',
@@ -47,7 +41,7 @@ var dailyavgrev = {
                 display: true,
                 scaleLabel: {
                     display: true,
-                    labelString: 'Avg. Revenue (Kes.)'
+                    labelString: 'Revenue (Kes.)'
                 },
                 ticks: {
                     callback: function(label, index, labels) {
@@ -67,31 +61,30 @@ var dailyavgrev = {
 
 
 
-var updateDailyAvgGraph  = function() {
+var updateTotalRevenueGraph  = function() {
 	$.ajax({
-    	url: '/redpesa-reporting/dailyaverage',
+    	url: '/redpesa-reporting/totalrevenue',
     	cache: false,
     	data: {},
     	dataType: 'json',
     	success: function(respdata, textstatus, jqXHR) {
-    		dailyavgrev.data.labels = respdata.labels;
-    		dailyavgrev.data.datasets[0].data = respdata.datasets[0].data;
-    		dailyavgrev.data.datasets[1].data = respdata.datasets[1].data;
+    		configTotalRev.data.labels = respdata.labels;
+    		configTotalRev.data.datasets[0].data = respdata.datasets[0].data;
     	},
     	
     });
 	
-    if(window.avg_daily_graph){
-    	window.avg_daily_graph.update();
+    if(window.totalrev_graph){
+    	window.totalrev_graph.update();
     }
     
-    setTimeout(updateDailyAvgGraph, 1300);
+    setTimeout(updateTotalRevenueGraph, 1000);
 };
 
-var initAverageDailyRevenue = function(){
-	var canvastotalrevenue = document.getElementById("canvasdailyavgrev");
+var initTotalRevenue = function(){
+	var canvastotalrevenue = document.getElementById("canvastotalrevenue");
 	if(canvastotalrevenue){
 		var ctx0 = canvastotalrevenue.getContext("2d");
-		window.avg_daily_graph = new Chart(ctx0, dailyavgrev);
+		window.totalrev_graph = new Chart(ctx0, configTotalRev);
 	}
 }

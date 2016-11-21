@@ -1,6 +1,5 @@
 function formatD(dgt){
-	var ddd =  dgt.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-	//dgt.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,');
+	var ddd =  dgt.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,');
 	return ddd;
 }
 
@@ -28,12 +27,10 @@ var configHourToHour = {
         }]
     },
     options: {
-        responsive: true,
-        tooltipTemplate : '<%if (label){%> <%=label%> Revenue : <%}%>KES. <%=formatD(value)%>',
-        scaleLabel: function (dgt) {
-            return dgt.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-            //dgt.toLocaleString();
-            //dgt.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,');
+    	responsive : true,
+		tooltipTemplate : "<%if (label){%> <%=label%> Revenue : <%}%>KES. <%=formatD(value)%>",
+		scaleLabel: function (dgt) {
+            return dgt.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,').toString();
         },
         scaleBeginAtZero: false,
         title:{
