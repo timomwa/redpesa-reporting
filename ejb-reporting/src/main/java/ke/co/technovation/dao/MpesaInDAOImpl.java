@@ -89,6 +89,75 @@ public class MpesaInDAOImpl extends GenericDAOImpl<MpesaIn, Long> implements Mpe
 		return transactions;
 	}
 	
+	
+	
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public String getaverageDailyRevenue(){
+		
+		String stringrepresentation_of_resultset = "";
+		
+		JSONObject mainObject = new JSONObject();
+		
+		try{
+			Query qry = entitiManager.createQuery("select sum(m.transAmount), date(m.timeStamp) "
+					+ "FROM MpesaIn m GROUP by date(m.timeStamp) ORDER BY date(m.timeStamp) ASC");
+			List<Object[]> rows = qry.getResultList();
+			
+			JSONObject data0 = new JSONObject();
+			JSONObject data1 = new JSONObject();
+			JSONArray labels =  new JSONArray();
+			JSONArray dataArray0 = new JSONArray();
+			JSONArray dataArray1 = new JSONArray();
+			JSONArray datasets =  new JSONArray();
+			
+			if(rows!=null){
+				BigDecimal acc_rev = BigDecimal.ZERO;
+				BigDecimal count = BigDecimal.ZERO;
+				BigDecimal average_daily_revenue = BigDecimal.ZERO;
+				for(Object[] row : rows){
+					count = count.add(BigDecimal.ONE);
+					BigDecimal transAmount = (BigDecimal) row[0];
+					Date date = (Date) row[1];
+					//Integer hour = (Integer) row[1];
+					acc_rev = acc_rev.add(transAmount);
+					
+					average_daily_revenue = acc_rev.divide(count, 2, BigDecimal.ROUND_HALF_EVEN);
+					
+					String avdaily_rev_str = nf.format(  acc_rev.doubleValue() );
+					labels.put( convertToPrettyFormat(date) );
+					dataArray0.put( average_daily_revenue.doubleValue() );
+					dataArray1.put( transAmount );
+				}
+			}
+		
+			data0.put("data", dataArray0);//Daily average
+			data1.put("data", dataArray1);//Daily Revenue
+			data0.put("fillColor", "rgba(151,187,205,1)");
+			data0.put("strokeColor", "rgba(151,187,205,0.8)");
+			data0.put("highlightFill", "rgba(151,187,205,0.75)");
+			data0.put("highlightStroke", "rgba(151,187,205,1)");
+			datasets.put(data0);
+			datasets.put(data1);
+			
+			mainObject.put("datasets", datasets);
+			mainObject.put("labels", labels);
+			
+			stringrepresentation_of_resultset = mainObject.toString();
+			
+		}catch(NoResultException e){
+			logger.info("No records found");
+		}catch(Exception e){
+			logger.error(e.getMessage(), e);
+		}
+		return stringrepresentation_of_resultset;
+	
+	}
+	
+	
+	
+	
 	@SuppressWarnings("unchecked")
 	@Override
 	public String gettotalRevenueToDate(){

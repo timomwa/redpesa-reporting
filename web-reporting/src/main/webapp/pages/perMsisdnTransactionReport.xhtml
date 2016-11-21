@@ -32,7 +32,12 @@
 							line-break-tag="&lt;p&gt;&lt;hr /&gt;&lt;/p&gt;" />
 					</b:column>
 				</b:row>
-
+				<b:row>
+					<b:column>&nbsp;</b:column>
+				</b:row>
+				<b:row>
+					<b:column>&nbsp;</b:column>
+				</b:row>
 				<b:row>
 					<b:column span="2">
 						<h:outputText value="Msisdn:" for="msisdn" />
@@ -57,7 +62,12 @@
 							value="#{searchBean.queryDTO.datefrom}" />
 					</b:column>
 				</b:row>
-
+				<b:row>
+					<b:column>&nbsp;</b:column>
+				</b:row>
+				<b:row>
+					<b:column>&nbsp;</b:column>
+				</b:row>
 				<b:row>
 					<b:column span="2">
 						<h:outputText value="Date to" for="dateto" />
@@ -67,15 +77,20 @@
 							value="#{searchBean.queryDTO.dateto}" />
 					</b:column>
 				</b:row>
-
+				<b:row>
+					<b:column>&nbsp;</b:column>
+				</b:row>
+				<b:row>
+					<b:column>&nbsp;</b:column>
+				</b:row>
 				<b:row>
 					<b:column span="3" offset="2">
 						<b:commandButton id="searchbtn" value="search" ajax="true"
 							update="@form,:traxTable" onclick="ajax:searchBean.search()"
 							look="primary" style="width:100%" />
 					</b:column>
-					<b:column span="2" offset="1">
-						<b:commandButton value="Download PDF" action="#{searchBean.downloadReport()}"  ajax="false" ></b:commandButton>
+					<b:column span="2" >
+						<b:commandButton value="Download PDF" action="#{searchBean.downloadReport()}"  ajax="false" style="width:100%" ></b:commandButton>
 					</b:column>
 				</b:row>
 

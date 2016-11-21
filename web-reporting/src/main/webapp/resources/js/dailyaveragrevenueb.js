@@ -1,9 +1,15 @@
-var configTotalRev = {
+var dailyavgrev = {
     type: 'line',
     data: {
         labels: [0],
         datasets: [{
-            label: "Accumulatived Revenue (Kes.)",
+            label: "Daily Avg. Revenue (Kes.)",
+            backgroundColor: window.chartColors.green,
+            borderColor: window.chartColors.green,
+            data: [0],
+            fill: false,
+        },{
+            label: "Daily Revenue (Kes.)",
             backgroundColor: window.chartColors.mycolor,
             borderColor: window.chartColors.mycolor,
             data: [0],
@@ -14,12 +20,12 @@ var configTotalRev = {
         responsive: true,
         tooltipTemplate : "<%if (label){%> <%=label%> Revenue : <%}%>KES. <%=formatD(value)%>",
         scaleLabel: function (dgt) {
-            return dgt.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,');
+            return dgt.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");// dgt.toLocaleString();//dgt.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,');
         },
         scaleBeginAtZero: false,
         title:{
             display:true,
-            text:'Accumulated Revenue'
+            text:'Avg. Revenue'
         },
         tooltips: {
             mode: 'index',
@@ -41,7 +47,7 @@ var configTotalRev = {
                 display: true,
                 scaleLabel: {
                     display: true,
-                    labelString: 'Revenue (Kes.)'
+                    labelString: 'Avg. Revenue (Kes.)'
                 },
                 ticks: {
                     callback: function(label, index, labels) {
@@ -61,38 +67,31 @@ var configTotalRev = {
 
 
 
-var updateTotalRevenueGraph  = function() {
+var updateDailyAvgGraph  = function() {
 	$.ajax({
-    	url: '/redpesa-reporting/totalrevenue',
+    	url: '/redpesa-reporting/dailyaverage',
     	cache: false,
     	data: {},
     	dataType: 'json',
     	success: function(respdata, textstatus, jqXHR) {
-    		configTotalRev.data.labels = respdata.labels;
-    		configTotalRev.data.datasets[0].data = respdata.datasets[0].data;
+    		dailyavgrev.data.labels = respdata.labels;
+    		dailyavgrev.data.datasets[0].data = respdata.datasets[0].data;
+    		dailyavgrev.data.datasets[1].data = respdata.datasets[1].data;
     	},
     	
     });
 	
-    if(window.totalrev_graph){
-    	window.totalrev_graph.update();
+    if(window.avg_daily_graph){
+    	window.avg_daily_graph.update();
     }
     
-    setTimeout(updateTotalRevenueGraph, 1000);
+    setTimeout(updateDailyAvgGraph, 1300);
 };
 
-var initTotalRevenue = function(){
-	var canvastotalrevenue = document.getElementById("canvastotalrevenue");
+var initAverageDailyRevenue = function(){
+	var canvastotalrevenue = document.getElementById("canvasdailyavgrev");
 	if(canvastotalrevenue){
 		var ctx0 = canvastotalrevenue.getContext("2d");
-		window.totalrev_graph = new Chart(ctx0, configTotalRev);
+		window.avg_daily_graph = new Chart(ctx0, dailyavgrev);
 	}
 }
-
-window.onload = function() {
-	initTotalRevenue();
-	initHourlyRevenue();
-    
-    updateGraph();
-    updateTotalRevenueGraph();
-};

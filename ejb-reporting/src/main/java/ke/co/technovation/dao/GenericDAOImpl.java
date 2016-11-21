@@ -154,6 +154,7 @@ public class GenericDAOImpl<T, ID extends Serializable> implements GenericDAOI<T
 	 * @see GenericDAO#findByNamedQuery(String, Map)
 	 */
 	@SuppressWarnings("unchecked")
+	@Override
 	public List<T> findByNamedQuery(final String name,
 			final Map<String, ? extends Object> params) {
 		javax.persistence.Query query = em.createNamedQuery(name);

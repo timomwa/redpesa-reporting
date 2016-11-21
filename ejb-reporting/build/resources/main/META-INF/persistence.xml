@@ -10,10 +10,13 @@
 		<class>ke.co.technovation.entity.Role</class>
 		<class>ke.co.technovation.entity.User</class>
 		<class>ke.co.technovation.entity.UserRole</class>
+		<class>ke.co.technovation.entity.EmailConfiguration</class>
+		<class>ke.co.technovation.entity.Mail</class>
 		<exclude-unlisted-classes>true</exclude-unlisted-classes>
 		<properties>
 			<property name="hibernate.hbm2ddl.auto" value="update" />
-			<property name="hibernate.show_sql" value="true" />
+			<property name="hibernate.show_sql" value="false" />
+			<property name="encryptorRegisteredName" value="strongHibernateEncryptor"/>
 			<!--property name="hibernate.default_schema" value="red_cross"/-->
 			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />
             <property name="hibernate.connection.release_mode" value="after_transaction" />

@@ -13,5 +13,7 @@ public interface MpesaInDAOI extends GenericDAOI<MpesaIn, Long> {
 	public String gettotalRevenueToDate();
 
 	public List<MsisdnTransactionsDTO> getTransactions(QueryDTO queryDTO);
+	
+	public String getaverageDailyRevenue();
 
 }

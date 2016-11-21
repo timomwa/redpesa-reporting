@@ -139,4 +139,6 @@ public interface GenericDAOI<T, ID extends Serializable> {
      */
     public void lock(T entity, LockModeType type);
     
+    
+    
 }

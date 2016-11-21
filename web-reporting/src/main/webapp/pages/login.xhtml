@@ -46,15 +46,17 @@
 				</b:row>
 				
 				<b:row>
-					<b:column span="3" offset="2">
+					<b:column span="4" offset="7">
 						<b:commandButton id="login" value="login" onclick="ajax:loginBean.login()"
 							update="@form" look="primary" style="width:100%" />
 					</b:column>
-					<b:column  span="6" >
-						<b:commandButton value="password forgotten"
-							onclick="ajax:loginBean.forgotPassword()" update="@form"
-							look="primary" style="width:100%" />
-					</b:column>
+					<ui:remove>
+						<b:column  span="6" >
+							<b:commandButton value="password forgotten"
+								onclick="ajax:loginBean.forgotPassword()" update="@form"
+								look="primary" style="width:100%" />
+						</b:column>
+					</ui:remove>
 				</b:row>
 		
 	</h:form>

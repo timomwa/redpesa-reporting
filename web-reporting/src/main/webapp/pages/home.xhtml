@@ -4,8 +4,10 @@
 	xmlns:p="http://primefaces.org/ui" xmlns:bnu="http://bootsfaces.net/ui"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 	
-	<h:outputScript name="js/redpesareportingfji.js" />
-	<h:outputScript name="js/totalrevenueji.js" />
+	<h:outputScript name="js/redpesareportingfjj.js" />
+	<h:outputScript name="js/totalrevenuejj.js" />
+	<h:outputScript name="js/dailyaveragrevenueb.js" />
+	<h:outputScript name="js/initallGraphs.js" />
 
 
 	<bnu:row>
@@ -28,11 +30,8 @@
 
 		<bnu:column col-xs="15" col-sm="4" col-md="3" col-lg="4">
 			<bnu:thumbnail>
-					<h3>Average Daily revenue Snapshot</h3>
-					<p>
-						Average daily rev goes here..
-					</p>
-				</bnu:thumbnail>
+					<bnu:canvas id="canvasdailyavgrev"></bnu:canvas>
+			</bnu:thumbnail>
 		</bnu:column>
 	</bnu:row>
 

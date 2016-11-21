@@ -1,7 +1,171 @@
-<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:p="http://primefaces.org/ui" xmlns:bnu="http://bootsfaces.net/ui"
+	xmlns:p="http://primefaces.org/ui" xmlns:b="http://bootsfaces.net/ui"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
-	<h1>Email Settings</h1>
-</ui:composition>
+<h:head>
+	<script type="text/javascript"></script>
+</h:head>
+
+<h:body>
+
+	<ui:composition>
+		<h1>Mailer Configuration</h1>
+		<b:row/>
+		
+		<b:panel class="content" id="emailconfig" style="margin: auto; width: 90%; border: 0px solid green; padding: 5px;">
+			
+			<h:form id="emailConfigForm">
+				
+				<b:row>
+					<b:column span="2">
+						<h:outputText value="Email user" for="emailuser" />
+					</b:column>
+					<b:column span="5">
+						<b:inputText type="email"  placeholder="Msisdn" id="emailuser"
+							value="#{emailconfigBean.config.email_username}" ajax="false"
+							autocomplete="false" update="@(.messagey)"
+							validatorMessage="#{emailconfigBean.config.email_username} is a valid email"
+							required="true">
+							<f:facet name="prepend">
+								<h:outputText value="@" />
+							</f:facet>
+							<f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
+						</b:inputText>
+					</b:column>
+				</b:row>
+				
+				
+				<b:row>
+					<b:column span="2">
+						<h:outputText value="Password" for="password" />
+					</b:column>
+					<b:column span="5">
+						<b:inputText type="password" placeholder="User password" id="password"
+							value="#{emailconfigBean.config.email_password}" ajax="false"
+							autocomplete="false">
+							<f:facet name="prepend">
+								<b:icon name="key" />
+							</f:facet>
+						</b:inputText>
+					</b:column>
+				</b:row>
+				
+				
+				<b:row>
+					<b:column span="2">
+						<h:outputText value="Send From Mail" for="send_from_email" />
+					</b:column>
+					<b:column span="5">
+						<b:inputText type="email" placeholder="Send From Email" id="send_from_email"
+							value="#{emailconfigBean.config.send_from_email}" ajax="false"
+							autocomplete="false"
+							validatorMessage="#{emailconfigBean.config.email_username} is a valid email"
+							required="true">
+							<f:facet name="prepend">
+								<h:outputText value="@" />
+							</f:facet>
+							<f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
+						</b:inputText>
+					</b:column>
+				</b:row>
+				
+				
+				
+				<b:row>
+					<b:column span="2">
+						<h:outputText value="SMTP Host" for="smtp_host" />
+					</b:column>
+					<b:column span="5">
+						<b:inputText placeholder="SMTP Host" id="smtp_host"
+							value="#{emailconfigBean.config.smtp_host}" ajax="false"
+							autocomplete="false">
+							<f:facet name="prepend">
+								<b:icon name="computer" />
+							</f:facet>
+						
+						</b:inputText>
+					</b:column>
+				</b:row>
+				
+				
+				<b:row>
+					<b:column span="2">
+						<h:outputText type="number"  value="SMTP Port"  for="smtp_port" />
+						
+					</b:column>
+					<b:column span="5">
+						<b:inputText placeholder="SMTP Port" id="smtp_port"
+							value="#{emailconfigBean.config.smtp_port}" ajax="false"
+							autocomplete="false"
+							maxlength="4"
+							validatorMessage="#{emailconfigBean.config.smtp_port} is not valid port">
+							<f:facet name="prepend">
+								<b:icon name="computer" />
+							</f:facet>
+						</b:inputText>
+					</b:column>
+				</b:row>
+				
+				
+				<b:row>
+					<b:column span="2" offse="5">
+						<h:outputText  value="Email Authentication" for="auth" />
+					</b:column>
+					<b:column span="5"  offse="5">
+						<b:switch render-label="true" tooltip="Enable authentication?" label="Enable Authentication" value="#{emailconfigBean.config.auth}" id="auth"/>
+					</b:column>
+				</b:row>
+				
+				<b:row>
+					<b:column span="2" offse="5">
+						<h:outputText  value="Enable TTLS"  for="starttls" />
+					</b:column>
+					<b:column span="5" offse="5">
+						<b:switch render-label="true" tooltip="Enable Start TTLS ?" label="Enable Star TTLS ?" value="#{emailconfigBean.config.starttls_enabled}"  id="starttls"/>
+					</b:column>
+				</b:row>
+				
+				<b:row>
+					<b:column span="2" offse="5">
+						<h:outputText  value="Enable"  for="active" />
+					</b:column>
+					<b:column span="5" offse="5">
+						<b:switch render-label="true" tooltip="Use this configuration in the application?" label="Enable this config?" value="#{emailconfigBean.config.active}"  id="active"/>
+					</b:column>
+				</b:row>
+				
+
+
+				<b:row>
+					<b:column span="2" offset="3" >
+						<b:commandButton id="saveconmailconfig" value="Save"
+							update="@form" onclick="ajax:emailconfigBean.save()"
+							look="primary" style="width:100%" />
+					</b:column>
+					
+					<b:column span="2" >
+						<b:commandButton id="testConfig" value="Test" ajax="true"
+							update="@form" onclick="ajax:emailconfigBean.testConfig()"
+							look="primary" style="width:100%" />
+					</b:column>
+				</b:row>
+				
+				<b:row/>
+				<b:row>
+					<b:column span="7" style-class="message">
+						<b:message id="messagey" for="saveconmailconfig"
+							line-break-tag="&lt;p&gt;&lt;hr /&gt;&lt;/p&gt;" />
+					</b:column>
+				</b:row>
+
+			</h:form>
+		</b:panel>
+
+	</ui:composition>
+
+</h:body>
+</html>

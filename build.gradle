@@ -42,7 +42,10 @@ dependencies {
 	earlib group: 'org.json', name: 'json', version: '20160810'
 	earlib group: 'org.apache.xmlgraphics', name: 'fop', version: '2.1'
 	earlib group: 'org.omnifaces', name: 'omnifaces', version: '2.5.1'
-	 	
+	earlib group: 'org.jasypt', name: 'jasypt-hibernate4', version: '1.9.2'
+	earlib group: 'javax.mail', name: 'mail', version: '1.4.7'
+	earlib group: 'joda-time', name: 'joda-time', version: '2.9.6'
+	
 	earlib ('redpesa:redpesa-ejb:1.0'){
 		transitive = false
 	}
