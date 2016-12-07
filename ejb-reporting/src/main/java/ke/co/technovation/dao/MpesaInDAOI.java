@@ -16,4 +16,6 @@ public interface MpesaInDAOI extends GenericDAOI<MpesaIn, Long> {
 	
 	public String getaverageDailyRevenue();
 
+	public List<MpesaIn> list(QueryDTO limit);
+
 }

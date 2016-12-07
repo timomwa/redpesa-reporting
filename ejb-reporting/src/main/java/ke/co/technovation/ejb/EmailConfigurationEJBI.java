@@ -10,4 +10,6 @@ public interface EmailConfigurationEJBI {
 	public EmailConfiguration getTheFirstConfig() throws Exception;
 	
 	public EmailTestStatus testConfig(EmailConfiguration config);
+
+	public EmailConfiguration findConfigById(Long config_id);
 }

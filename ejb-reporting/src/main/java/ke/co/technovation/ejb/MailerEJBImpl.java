@@ -2,8 +2,10 @@ package ke.co.technovation.ejb;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Properties;
+import java.util.Queue;
 
 import javax.annotation.PostConstruct;
+import javax.ejb.Asynchronous;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.mail.Message;
@@ -14,6 +16,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 import org.apache.log4j.Logger;
+import org.joda.time.DateTime;
 
 import ke.co.technovation.constants.EmailTestStatus;
 import ke.co.technovation.dao.MailDAOI;
@@ -66,6 +69,44 @@ public class MailerEJBImpl implements MailerEJBI {
 	}
 	
 	@Override
+	@Asynchronous
+	public void processMails(Queue<Mail> emails){
+		
+		try{
+			
+			while(emails.size()>0){
+				
+				try{
+					
+					Mail email = emails.poll();
+					ProcessingStatus status = sendEmail(email);
+					email.setStatus(status);
+
+					if (status != ProcessingStatus.PROCESSED_SUCCESSFULLY) {
+
+						DateTime dateTime = new DateTime(email.getSendAfter());
+						dateTime = dateTime.plusMinutes(email.getRetry_wait_time().intValue());
+						email.setSendAfter(dateTime.toDate());
+						if (email.getRetry_count() >= 1)
+							email.setRetry_wait_time(email.getRetry_wait_time() + email.getRetry_count() );
+						email.setRetry_count(email.getRetry_count() + 1);
+					}
+
+					email = saveEmail(email);// Re-queue?
+					
+				}catch(Exception e){
+					logger.error(e.getMessage(), e);
+				}
+				
+			}
+			
+		}catch(Exception e){
+			logger.error(e.getMessage(), e);
+		}
+		
+	}
+	
+	@Override
 	public Mail saveEmail(Mail email) throws Exception{
 		return mailDAO.save(email);
 	}
@@ -104,10 +145,12 @@ public class MailerEJBImpl implements MailerEJBI {
 			
 			EmailConfiguration config = null;
 			
-			if(email.getConfig_id()==null){
+			if(email.getConfig_id().compareTo(-1L)<=0){
 				config = emailConfigEJB.getTheFirstConfig();
 				if(config!=null)
 					email.setConfig_id(config.getId());
+			}else{
+				config = emailConfigEJB.findConfigById(email.getConfig_id());
 			}
 			
 			Session mailsession = Session.getDefaultInstance(mailServerProperties, null);

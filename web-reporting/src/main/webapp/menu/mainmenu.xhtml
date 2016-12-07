@@ -37,17 +37,16 @@
 
 
 					<bnu:dropMenu value="Real-time Monitor">
+						<bnu:navLink value="Paybill Account number distribution" 
+							onclick="ajax:pageBean.perAccountTransactionCount()" 
+							href="#{pageBean.approot}/reporting/perAccountTransactionCount.jsf"></bnu:navLink>
 						<bnu:navLink value="Same hour comparison - Inflow" 
 							onclick="ajax:pageBean.sameHourComparisonInflow()" 
 							update=":templatecontent"></bnu:navLink>
 						<bnu:navLink value="Same hour comparison - Outflow" 
-							onclick="ajax:pageBean.sameHourComparisonOutflow()" 
-							update=":templatecontent"></bnu:navLink>
+							onclick="ajax:pageBean.sameHourComparisonOutflow()"></bnu:navLink>
 						<bnu:navLink value="Per msisdn transaction count"
 							onclick="ajax:pageBean.perMsisdnTransactionCount()" 
-							update=":templatecontent"></bnu:navLink>
-						<bnu:navLink value="Per account transaction count" 
-							onclick="ajax:pageBean.perAccountTransactionCount()" 
 							update=":templatecontent"></bnu:navLink>
 						<bnu:navLink value="Same hour paybill transaction comparison"
 							onclick="ajax:pageBean.sameHourPaybillTransactionComparison()" 
@@ -64,7 +63,7 @@
 							update=":templatecontent"></bnu:navLink>
 						<bnu:navLink value="Detailed Mobile money Transaction - Outflow"
 							onclick="ajax:pageBean.detailedMobileMoneyOutflow()" 
-							update=":templatecontent"></bnu:navLink>
+							href="#{pageBean.approot}/reporting/detailedMobileMoneyOutflow.jsf"></bnu:navLink>
 					</bnu:dropMenu>
 
 					<bnu:navLink value="Report subscription"

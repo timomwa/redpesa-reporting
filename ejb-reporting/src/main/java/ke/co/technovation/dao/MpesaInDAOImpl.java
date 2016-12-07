@@ -1,10 +1,7 @@
 package ke.co.technovation.dao;
 
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.text.DateFormat;
-import java.text.NumberFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -30,11 +27,60 @@ public class MpesaInDAOImpl extends GenericDAOImpl<MpesaIn, Long> implements Mpe
 	private EntityManager entitiManager;
 	
 	private SimpleDateFormat formatDayOfMonth  = new SimpleDateFormat("d");
-	private DateFormat formatter = new SimpleDateFormat("yyyy/MM/dd/"); 
+	//private DateFormat formatter = new SimpleDateFormat("yyyy/MM/dd/"); 
 	private Logger logger = Logger.getLogger(getClass());
-	private NumberFormat nf = NumberFormat.getInstance();//Be careful only available in Java 8
+	//private NumberFormat nf = NumberFormat.getInstance();//Be careful only available in Java 8
 	
-	@SuppressWarnings({ "unused", "unchecked" })
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<MpesaIn> list(QueryDTO queryDTO){
+		List<MpesaIn> mpesaIns = new ArrayList<MpesaIn>();
+		try{
+			String query = "from MpesaIn WHERE id>0 ";
+			
+			if(queryDTO.getDatefrom()!=null && queryDTO.getDateto()!=null){
+				query = query+" AND date(transTime) between date(:fromTime) and date(:toTime)";
+			}else if(queryDTO.getDatefrom()!=null && queryDTO.getDateto()==null){
+				query = query+" AND date(transTime) between date(:fromTime) and date(:toTime)";
+				queryDTO.setDateto(new Date());
+			}
+			if(queryDTO.getDateto()!=null && queryDTO.getDatefrom()==null){
+				query = query+" AND date(transTime) <= date(:thisTS) ";
+			}
+			if(queryDTO.getMsisdn()!=null && !queryDTO.getMsisdn().isEmpty()){
+				query = query + " AND receiverPartyPublicName like :nameormsisdn";
+			}
+							
+			query = query + " order by transTime desc";
+			
+			Query preparedQuery = entitiManager.createQuery(query);
+			if(queryDTO.getDateto()!=null && queryDTO.getDatefrom()==null){
+				preparedQuery.setParameter("thisTS", queryDTO.getDateto());
+			}else if(queryDTO.getDatefrom()!=null && queryDTO.getDateto()!=null){
+				preparedQuery.setParameter("fromTime", queryDTO.getDatefrom());
+				preparedQuery.setParameter("toTime", queryDTO.getDateto());
+			}
+			if(queryDTO.getLimit()!=null && queryDTO.getLimit().compareTo(0)>0)
+				preparedQuery.setMaxResults(queryDTO.getLimit().intValue());
+			if(queryDTO.getStart()!=null && queryDTO.getStart().compareTo(-1)>0)
+				preparedQuery.setFirstResult(queryDTO.getStart().intValue());
+			if(queryDTO.getMsisdn()!=null && !queryDTO.getMsisdn().isEmpty()){
+				preparedQuery.setParameter("nameormsisdn", "%"+queryDTO.getMsisdn()+"%");
+			}
+			mpesaIns = preparedQuery.getResultList();
+			
+		}catch(NoResultException nre){
+			logger.error("Could not find result for query params -> ");
+		}catch(Exception e){
+			logger.error(e.getMessage(), e);
+		}
+		return mpesaIns;
+	}
+	
+	
+	
+	
+	@SuppressWarnings({ "unchecked" })
 	@Override
 	public List<MsisdnTransactionsDTO> getTransactions(QueryDTO queryDTO) {
 		
@@ -69,6 +115,11 @@ public class MpesaInDAOImpl extends GenericDAOImpl<MpesaIn, Long> implements Mpe
 				preparedQuery.setParameter("fromTime", queryDTO.getDatefrom());
 				preparedQuery.setParameter("toTime", queryDTO.getDateto());
 			}
+			
+			if(queryDTO.getLimit()!=null && queryDTO.getLimit().compareTo(0)>0)
+				preparedQuery.setMaxResults(queryDTO.getLimit().intValue());
+			if(queryDTO.getStart()!=null && queryDTO.getStart().compareTo(-1)>0)
+				preparedQuery.setFirstResult(queryDTO.getStart().intValue());
 			
 			List<Object[]> mpesaRecs = preparedQuery.getResultList();
 			
@@ -125,7 +176,7 @@ public class MpesaInDAOImpl extends GenericDAOImpl<MpesaIn, Long> implements Mpe
 					
 					average_daily_revenue = acc_rev.divide(count, 2, BigDecimal.ROUND_HALF_EVEN);
 					
-					String avdaily_rev_str = nf.format(  acc_rev.doubleValue() );
+					//String avdaily_rev_str = nf.format(  acc_rev.doubleValue() );
 					labels.put( convertToPrettyFormat(date) );
 					dataArray0.put( average_daily_revenue.doubleValue() );
 					dataArray1.put( transAmount );
@@ -183,7 +234,7 @@ public class MpesaInDAOImpl extends GenericDAOImpl<MpesaIn, Long> implements Mpe
 					Date date = (Date) row[1];
 					//Integer hour = (Integer) row[1];
 					acc_rev = acc_rev.add(transAmount);
-					String accRev = nf.format(  acc_rev.doubleValue() );
+					//String accRev = nf.format(  acc_rev.doubleValue() );
 					labels.put( convertToPrettyFormat(date) );
 					dataArray.put( acc_rev.doubleValue() );
 				}
@@ -236,7 +287,7 @@ public class MpesaInDAOImpl extends GenericDAOImpl<MpesaIn, Long> implements Mpe
 				for(Object[] row : rows){
 					BigDecimal transAmount = (BigDecimal) row[0];
 					Integer hour = (Integer) row[1];
-					String accRev = nf.format(  transAmount.doubleValue() );
+					//String accRev = nf.format(  transAmount.doubleValue() );
 					labels.put(hour.intValue());
 					dataArray.put( transAmount.doubleValue() );
 				}

@@ -46,6 +46,11 @@ dependencies {
 	earlib group: 'javax.mail', name: 'mail', version: '1.4.7'
 	earlib group: 'joda-time', name: 'joda-time', version: '2.9.6'
 	
+	//Below for EJB clients
+	earlib group: 'org.jboss', name: 'jboss-remote-naming', version: '2.0.4.Final'
+	earlib group: 'org.jboss.xnio', name: 'xnio-nio', version: '3.2.0.Final'
+	earlib group: 'org.jboss.remoting', name: 'jboss-remoting', version: '4.0.0.Final'
+	
 	earlib ('redpesa:redpesa-ejb:1.0'){
 		transitive = false
 	}

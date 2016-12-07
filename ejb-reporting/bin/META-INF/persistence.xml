@@ -28,6 +28,7 @@
 		<jta-data-source>java:/redpesaDS</jta-data-source>
 		 <class>co.ke.technovation.entity.MpesaInRawXML</class>
 		 <class>co.ke.technovation.entity.MpesaIn</class>
+		 <class>co.ke.technovation.entity.MpesaOut</class>
 		 <class>co.ke.technovation.entity.Msisdn</class>
 		 <class>co.ke.technovation.entity.MsisdnList</class>
 		 <class>co.ke.technovation.entity.Counter</class>

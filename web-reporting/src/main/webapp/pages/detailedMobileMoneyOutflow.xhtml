@@ -1,7 +1,98 @@
-<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:p="http://primefaces.org/ui" xmlns:bnu="http://bootsfaces.net/ui"
+	xmlns:p="http://primefaces.org/ui" xmlns:b="http://bootsfaces.net/ui"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
-	<h1>Detailed Mobile Money Transactions ( Outflow)</h1>
-</ui:composition>
+<h:head>
+</h:head>
+
+<h:body>
+
+	<ui:composition>
+		<b:panel class="content" id="formdd" style="margin: auto; width: 100%; border: 0px solid green; padding: 5px;">
+			<h1>Detailed Mobile Money Transactions ( Outflow )</h1>
+			<h:form id="searchForm">
+				<b:row>
+					<b:column span="7" style-class="message">
+						<b:message id="messagex" for="searchbtn"
+							line-break-tag="&lt;p&gt;&lt;hr /&gt;&lt;/p&gt;" />
+					</b:column>
+				</b:row>
+				<b:row>
+					<b:column>&nbsp;</b:column>
+				</b:row>
+				<b:row>
+					<b:column span="2">
+						<h:outputText value="Msisdn / Name:" for="msisdn" />
+					</b:column>
+					<b:column span="5">
+						<b:inputText placeholder="Msisdn or Name" id="msisdn"
+							value="#{mobilemoneyTransBean.queryDTO.msisdn}" ajax="true"
+							autocomplete="false" update="@(.messagex)">
+							<f:facet name="prepend">
+								<b:icon name="iphone" />
+							</f:facet>
+						</b:inputText>
+					</b:column>
+				</b:row>
+
+				<b:row>
+					<b:column span="2">
+						<h:outputText value="Date from" for="datefrom" />
+					</b:column>
+					<b:column span="5">
+						<b:datepicker placeholder="Date From" mode="icon-popup"
+							value="#{mobilemoneyTransBean.queryDTO.datefrom}" />
+					</b:column>
+				</b:row>
+				<b:row>
+					<b:column>&nbsp;</b:column>
+				</b:row>
+				<b:row>
+					<b:column span="2">
+						<h:outputText value="Date to" for="dateto" />
+					</b:column>
+					<b:column span="5">
+						<b:datepicker placeholder="Date To" mode="icon-popup"
+							value="#{mobilemoneyTransBean.queryDTO.dateto}" />
+					</b:column>
+				</b:row>
+				<b:row>
+					<b:column>&nbsp;</b:column>
+				</b:row>
+				<b:row>
+					<b:column>&nbsp;</b:column>
+				</b:row>
+				<b:row>
+					<b:column span="3" offset="2">
+						<b:commandButton id="searchbtn" value="search" ajax="true"
+							update="@form,:traxTable" onclick="ajax:mobilemoneyTransBean.searchOuts()"
+							look="primary" style="width:100%" />
+					</b:column>
+					<b:column span="2" >
+						<b:commandButton value="Download PDF" action="#{mobilemoneyTransBean.downloadReport()}"  ajax="false" style="width:100%" ></b:commandButton>
+					</b:column>
+				</b:row>
+
+			</h:form>
+		</b:panel>
+
+		<b:panel>
+			<b:dataTable scroll-x="false" page-length="50" fixedHeader="true" responsive="true" ajax="true" style="display nowrap" style-class="display nowrap"
+				id="traxTable" value="#{mobilemoneyTransBean.mpesaOuts}" var="trx">
+				<b:dataTableColumn value="#{trx.conversationID}" label="Winning Ticket"/>
+				<b:dataTableColumn value="#{trx.transId}" label="Trx ID"/>
+				<b:dataTableColumn value="#{trx.transactionCompletedDateTime}" label="Time"/>
+				<b:dataTableColumn value="#{trx.transactionAmount}" label="Amount"/>
+				<b:dataTableColumn value="#{trx.receiverPartyPublicName}" label="Recepient" />				
+				<b:dataTableColumn value="#{trx.resultDesc}" label="B2C Response" />
+			</b:dataTable>
+		</b:panel>
+
+	</ui:composition>
+
+</h:body>
+</html>

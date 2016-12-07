@@ -13,6 +13,9 @@ public class QueryDTO implements Serializable {
 	private String msisdn;
 	private Date datefrom;
 	private Date dateto;
+	private Integer limit;
+	private Integer start;
+	
 	public String getMsisdn() {
 		return msisdn;
 	}
@@ -31,9 +34,22 @@ public class QueryDTO implements Serializable {
 	public void setDateto(Date dateto) {
 		this.dateto = dateto;
 	}
+	
+	public Integer getLimit() {
+		return limit;
+	}
+	public void setLimit(Integer limit) {
+		this.limit = limit;
+	}
+	public Integer getStart() {
+		return start;
+	}
+	public void setStart(Integer start) {
+		this.start = start;
+	}
 	@Override
 	public String toString() {
-		return "QueryDTO [msisdn=" + msisdn + ",\ndatefrom=" + datefrom + ",\ndateto=" + dateto + "]";
+		return "QueryDTO [start=" + start + ",limit=" + limit + ",msisdn=" + msisdn + ",\ndatefrom=" + datefrom + ",\ndateto=" + dateto + "]";
 	}
 	
 	

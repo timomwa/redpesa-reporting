@@ -28,6 +28,10 @@ dependencies {
 	compile group: 'org.jasypt', name: 'jasypt-hibernate4', version: '1.9.2'
 	compile group: 'javax.mail', name: 'mail', version: '1.4.7'
 	compile group: 'joda-time', name: 'joda-time', version: '2.9.6'
+	//For remoting
+	compile group: 'org.jboss', name: 'jboss-remote-naming', version: '2.0.4.Final'
+	compile group: 'org.jboss.xnio', name: 'xnio-nio', version: '3.2.0.Final'
+	compile group: 'org.jboss.remoting', name: 'jboss-remoting', version: '4.0.0.Final'
 }
 	
 configurations {

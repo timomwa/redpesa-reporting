@@ -33,4 +33,9 @@ public class EmailConfigurationEJBImpl implements EmailConfigurationEJBI {
 		return mailerEJB.sendTestMail(config);
 	}
 	
+	@Override
+	public EmailConfiguration findConfigById(Long id){
+		return mailconfigDAO.findById(id);
+	}
+	
 }
