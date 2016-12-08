@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
-import ke.co.technovation.ejb.HourToHourEJBI;
+import ke.co.technovation.ejb.WeekToWeekEJBI;
 @WebServlet("/weektoweek")
 public class WeekToWeekComparison  extends HttpServlet {
 	
@@ -22,7 +22,7 @@ public class WeekToWeekComparison  extends HttpServlet {
 	private static final long serialVersionUID = -5703128119318296138L;
 
 	@EJB
-	private HourToHourEJBI hourtoHourEJB;
+	private WeekToWeekEJBI weektoWeekEJB;
 	
 	
 	private Logger logger = Logger.getLogger(getClass());
@@ -38,7 +38,7 @@ public class WeekToWeekComparison  extends HttpServlet {
 		PrintWriter pw = resp.getWriter();
 		
 		try{
-			String hour_to_hour = hourtoHourEJB.getStats();
+			String hour_to_hour = weektoWeekEJB.getStats();
 			
 			resp.setContentType("application/json");
 			pw.println(hour_to_hour);

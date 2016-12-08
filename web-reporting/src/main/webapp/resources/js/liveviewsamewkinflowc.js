@@ -20,14 +20,14 @@ var configliveviewsamewkinflow = {
         datasets: [{
         	type: 'line',
             label: "Weekly Avg. (Kes.)",
-            backgroundColor: window.chartColorsWK.orange,
-            borderColor: window.chartColorsWK.orange,
+            backgroundColor: window.chartColorsWK.red,
+            borderColor: window.chartColorsWK.red,
             data: [0],
             fill: false,
         },{
         	type: 'bar',
         	label: "Weekly Rev (Kes.)",
-            backgroundColor: window.chartColorsWK.purple,
+            backgroundColor: window.chartColorsWK.blue,
             borderColor: window.chartColorsWK.grey,
             data: [0],
             fill: false,
@@ -116,7 +116,10 @@ var initLiveWkGraphInflow = function(){
 	setTimeout(updateWkLiveGraph, 1800);
 }
 window.onload = function() {
+	initLiveGraphInflow();
 	initLiveWkGraphInflow();
+	
+	updateLiveGraph();
 	updateWkLiveGraph();
 }
 

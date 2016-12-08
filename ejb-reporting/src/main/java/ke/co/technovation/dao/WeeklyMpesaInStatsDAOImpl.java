@@ -2,6 +2,7 @@ package ke.co.technovation.dao;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.math.RoundingMode;
 import java.util.Date;
 import java.util.List;
 
@@ -32,47 +33,39 @@ public class WeeklyMpesaInStatsDAOImpl extends GenericDAOImpl<MpesaIn, Long> imp
 		JSONObject mainObject = new JSONObject();
 		
 		try{
-			Query qry = entitiManager.createQuery("select sum(m.transAmount), hour(m.timeStamp) "
-					+ "FROM MpesaIn m WHERE hour(m.timeStamp)<=hour( :curdte ) "
-					+ "AND  "
-					+ "date(m.timeStamp)= date( :curdte ) "
-					+ "GROUP by hour(m.timeStamp) ORDER BY hour(m.timeStamp) ASC");
-			qry.setParameter("curdte", new Date());
+			Query qry = entitiManager.createNativeQuery("select sum(transAmount) amt , week(transTime)-43 wk from mpesa_in  group by week(transTime) having wk>= 0");
 			List<Object[]> rows = qry.getResultList();
 			
 			JSONObject data = new JSONObject();
-			JSONObject hourlyAverages = new JSONObject();
+			JSONObject weeklyAverages = new JSONObject();
 			JSONArray labels =  new JSONArray();
 			JSONArray dataArray = new JSONArray();
+			JSONArray weeklyAverageArray = new JSONArray();
 			JSONArray datasets =  new JSONArray();
 			JSONArray avaragesArray =  new JSONArray();
 			
-			if(rows!=null)
+			if(rows!=null){
+				BigDecimal week_count = BigDecimal.ZERO;
+				BigDecimal cumulative_rev = BigDecimal.ZERO;
+				BigDecimal weekly_average = BigDecimal.ZERO;
 				for(Object[] row : rows){
+					week_count = week_count.add(BigDecimal.ONE);
 					BigDecimal transAmount = (BigDecimal) row[0];
-					Integer hour = (Integer) row[1];
+					cumulative_rev = cumulative_rev.add(transAmount);
+					weekly_average = cumulative_rev.divide(week_count, 2, RoundingMode.HALF_EVEN);
+					
+					Integer week = (Integer) row[1];
 					//String accRev = nf.format(  transAmount.doubleValue() );
-					labels.put(hour.intValue());
+					
+					labels.put(week.intValue());
+					weeklyAverageArray.put(weekly_average.doubleValue());
 					dataArray.put( transAmount.doubleValue() );
 				}
-			qry = entitiManager.createQuery("select  distinct date(m.timeStamp) from MpesaIn m");
-			List<Object> l = qry.getResultList();
-			BigInteger days_running = BigInteger.valueOf( l.size() );
-			
-			qry = entitiManager.createQuery("select hour(timeStamp), sum(transAmount) from MpesaIn group by hour(timeStamp)");
-			
-			rows = qry.getResultList();
-			if(rows!=null){
-				for(Object[] row : rows){
-					Integer hour = (Integer) row[0];
-					BigDecimal total_hour_Rev = (BigDecimal) row[1];
-					BigDecimal hourly_average = total_hour_Rev.divide(BigDecimal.valueOf(days_running.intValue()), 2, BigDecimal.ROUND_HALF_EVEN);
-					avaragesArray.put( hourly_average.doubleValue() );
-				}
 			}
+			
 			data.put("data", dataArray);
-			hourlyAverages.put("data", avaragesArray);
-			datasets.put(hourlyAverages);
+			weeklyAverages.put("data", weeklyAverageArray);
+			datasets.put(weeklyAverages);
 			datasets.put(data);
 			
 			mainObject.put("datasets", datasets);
