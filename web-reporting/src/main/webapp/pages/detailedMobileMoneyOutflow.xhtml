@@ -86,7 +86,7 @@
 				<b:dataTableColumn value="#{trx.conversationID}" label="Winning Ticket"/>
 				<b:dataTableColumn value="#{trx.transId}" label="Trx ID"/>
 				<b:dataTableColumn value="#{trx.transactionCompletedDateTime}" label="Time"/>
-				<b:dataTableColumn value="#{trx.transactionAmount}" label="Amount"/>
+				<b:dataTableColumn dataType="numeric-comma" value="#{trx.transactionAmount}" label="Amount"/>
 				<b:dataTableColumn value="#{trx.receiverPartyPublicName}" label="Recepient" />				
 				<b:dataTableColumn value="#{trx.resultDesc}" label="B2C Response" />
 			</b:dataTable>

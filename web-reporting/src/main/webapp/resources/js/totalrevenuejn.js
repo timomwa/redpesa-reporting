@@ -78,7 +78,7 @@ var updateTotalRevenueGraph  = function() {
     	window.totalrev_graph.update();
     }
     
-    setTimeout(updateTotalRevenueGraph, 1000);
+    setTimeout(updateTotalRevenueGraph, 10000);
 };
 
 var initTotalRevenue = function(){

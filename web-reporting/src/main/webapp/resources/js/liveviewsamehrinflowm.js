@@ -3,7 +3,7 @@ function formatD(dgt){
 	return ddd;
 }
 
-window.chartColors = {
+window.chartColorsLV = {
 	mycolor: 'rgba(151,187,205,0.8)',
 	red: 'rgb(255, 99, 132)',
 	orange: 'rgb(255, 159, 64)',
@@ -14,18 +14,26 @@ window.chartColors = {
 	grey: 'rgb(231,233,237)'
 };
 
-var configHourToHour = {
-    type: 'line',
+var configLiveviewsamehrinflow = {
     data: {
         labels: [0],
         datasets: [{
-            label: "Revenue (Kes.)",
-            backgroundColor: window.chartColors.red,
-            borderColor: window.chartColors.red,
+        	type: 'line',
+            label: "Hourly Avg. (Kes.)",
+            backgroundColor: window.chartColorsLV.orange,
+            borderColor: window.chartColorsLV.orange,
+            data: [0],
+            fill: false,
+        },{
+        	type: 'bar',
+        	label: "Hourly Rev (Kes.)",
+            backgroundColor: window.chartColorsLV.purple,
+            borderColor: window.chartColorsLV.grey,
             data: [0],
             fill: false,
         }]
     },
+    type: 'bar',
     options: {
     	responsive : true,
 		tooltipTemplate : "<%if (label){%> <%=label%> Revenue : <%}%>KES. <%=formatD(value)%>",
@@ -35,7 +43,7 @@ var configHourToHour = {
         scaleBeginAtZero: false,
         title:{
             display:true,
-            text:'Hour-to-hour Revenue Comparison'
+            text:'Hour-to-hour Inflow Comparison'
         },
         tooltips: {
             mode: 'index',
@@ -61,9 +69,13 @@ var configHourToHour = {
                 },
                 ticks: {
                     callback: function(label, index, labels) {
-                    	label = label/1000;
-                    	var formattednum = parseFloat(label, 10).toFixed(1).replace(/(\d)(?=(\d{3})+\.)/g, "$1,").toString();
-                        return formattednum+' k';
+                    	if(label>1000){
+                    		label = label/1000;
+                    		var formattednum = parseFloat(label, 10).toFixed(1).replace(/(\d)(?=(\d{3})+\.)/g, "$1,").toString();
+                    		return formattednum+' k';
+                    	}
+                    	return formattednum;
+                    	
                     }
                 },
                 scaleLabel: {
@@ -75,29 +87,33 @@ var configHourToHour = {
     }
 };
 
-var updateGraph  = function() {
+var updateLiveGraph  = function() {
+	console.log('updateLiveGraph Called! ');
 	$.ajax({
     	url: '/redpesa-reporting/hourtohour',
     	cache: false,
     	data: {},
     	dataType: 'json',
     	success: function(respdata, textstatus, jqXHR) {
-    		configHourToHour.data.labels = respdata.labels;
-    		configHourToHour.data.datasets[0].data = respdata.datasets[0].data;
+    		configLiveviewsamehrinflow.data.labels = respdata.labels;
+    		configLiveviewsamehrinflow.data.datasets[0].data = respdata.datasets[0].data;
+    		configLiveviewsamehrinflow.data.datasets[1].data = respdata.datasets[1].data;
     	},
     });
 	
-    if(window.myLine){
-    	window.myLine.update();
+    if(window.liveviewsamehrinflow){
+    	window.liveviewsamehrinflow.update();
     }
     
-    setTimeout(updateGraph, 19500);
+    setTimeout(updateLiveGraph, 15000);
 };
 
-var initHourlyRevenue = function(){
-	var canvas_ = document.getElementById("canvas");
-	if(canvas_){
-		var ctx = canvas_.getContext("2d");
-		window.myLine = new Chart(ctx, configHourToHour);
+var initLiveGraphInflow = function(){
+	var liveviewsamehrinflow = document.getElementById("liveviewsamehrinflow");
+	if(liveviewsamehrinflow){
+		var ctx = liveviewsamehrinflow.getContext("2d");
+		window.liveviewsamehrinflow = new Chart(ctx, configLiveviewsamehrinflow);
 	}
+	setTimeout(updateLiveGraph, 1500);
 }
+

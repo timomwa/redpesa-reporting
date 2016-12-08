@@ -1,7 +1,9 @@
 package ke.co.technovation.dao;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.text.DateFormat;
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -29,7 +31,7 @@ public class MpesaInDAOImpl extends GenericDAOImpl<MpesaIn, Long> implements Mpe
 	private SimpleDateFormat formatDayOfMonth  = new SimpleDateFormat("d");
 	//private DateFormat formatter = new SimpleDateFormat("yyyy/MM/dd/"); 
 	private Logger logger = Logger.getLogger(getClass());
-	//private NumberFormat nf = NumberFormat.getInstance();//Be careful only available in Java 8
+	private NumberFormat nf = NumberFormat.getInstance();//Be careful only available in Java 8
 	
 	@SuppressWarnings("unchecked")
 	@Override
@@ -48,7 +50,7 @@ public class MpesaInDAOImpl extends GenericDAOImpl<MpesaIn, Long> implements Mpe
 				query = query+" AND date(transTime) <= date(:thisTS) ";
 			}
 			if(queryDTO.getMsisdn()!=null && !queryDTO.getMsisdn().isEmpty()){
-				query = query + " AND receiverPartyPublicName like :nameormsisdn";
+				query = query + " AND msisdn like :nameormsisdn OR first_name like :nameormsisdn OR middle_name like :nameormsisdn OR last_name like :nameormsisdn  OR transId like :nameormsisdn ";
 			}
 							
 			query = query + " order by transTime desc";
@@ -241,10 +243,6 @@ public class MpesaInDAOImpl extends GenericDAOImpl<MpesaIn, Long> implements Mpe
 			}
 		
 			data.put("data", dataArray);
-			data.put("fillColor", "rgba(151,187,205,1)");
-			data.put("strokeColor", "rgba(151,187,205,0.8)");
-			data.put("highlightFill", "rgba(151,187,205,0.75)");
-			data.put("highlightStroke", "rgba(151,187,205,1)");
 			datasets.put(data);
 			
 			mainObject.put("datasets", datasets);
@@ -279,9 +277,11 @@ public class MpesaInDAOImpl extends GenericDAOImpl<MpesaIn, Long> implements Mpe
 			List<Object[]> rows = qry.getResultList();
 			
 			JSONObject data = new JSONObject();
+			JSONObject hourlyAverages = new JSONObject();
 			JSONArray labels =  new JSONArray();
 			JSONArray dataArray = new JSONArray();
 			JSONArray datasets =  new JSONArray();
+			JSONArray avaragesArray =  new JSONArray();
 			
 			if(rows!=null)
 				for(Object[] row : rows){
@@ -291,12 +291,24 @@ public class MpesaInDAOImpl extends GenericDAOImpl<MpesaIn, Long> implements Mpe
 					labels.put(hour.intValue());
 					dataArray.put( transAmount.doubleValue() );
 				}
-		
+			qry = entitiManager.createQuery("select  distinct date(m.timeStamp) from MpesaIn m");
+			List<Object> l = qry.getResultList();
+			BigInteger days_running = BigInteger.valueOf( l.size() );
+			
+			qry = entitiManager.createQuery("select hour(timeStamp), sum(transAmount) from MpesaIn group by hour(timeStamp)");
+			
+			rows = qry.getResultList();
+			if(rows!=null){
+				for(Object[] row : rows){
+					Integer hour = (Integer) row[0];
+					BigDecimal total_hour_Rev = (BigDecimal) row[1];
+					BigDecimal hourly_average = total_hour_Rev.divide(BigDecimal.valueOf(days_running.intValue()), 2, BigDecimal.ROUND_HALF_EVEN);
+					avaragesArray.put( hourly_average.doubleValue() );
+				}
+			}
 			data.put("data", dataArray);
-			data.put("fillColor", "rgba(151,187,205,1)");
-			data.put("strokeColor", "rgba(151,187,205,0.8)");
-			data.put("highlightFill", "rgba(151,187,205,0.75)");
-			data.put("highlightStroke", "rgba(151,187,205,1)");
+			hourlyAverages.put("data", avaragesArray);
+			datasets.put(hourlyAverages);
 			datasets.put(data);
 			
 			mainObject.put("datasets", datasets);

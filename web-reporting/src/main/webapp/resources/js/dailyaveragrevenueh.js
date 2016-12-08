@@ -88,7 +88,7 @@ var updateDailyAvgGraph  = function() {
     	window.avg_daily_graph.update();
     }
     
-    setTimeout(updateDailyAvgGraph, 1300);
+    setTimeout(updateDailyAvgGraph, 13000);
 };
 
 var initAverageDailyRevenue = function(){
