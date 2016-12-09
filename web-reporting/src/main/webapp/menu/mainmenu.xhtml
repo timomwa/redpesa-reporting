@@ -20,19 +20,23 @@
 						<bnu:navLink value="Email Settings" 
 							onclick="ajax:pageBean.emailSettings()" 
 							href="#{pageBean.approot}/configuration/emailSettings.jsf"></bnu:navLink>
-						<bnu:navLink value="Audit Trail Report" 
+						<ui:remove>
+							<bnu:navLink value="Audit Trail Report" 
 							onclick="ajax:pageBean.auditTrailReport()" 
 							update=":templatecontent"></bnu:navLink>
-						<bnu:navLink></bnu:navLink>
-						<bnu:navLink value="Bussiness shortcode Info" 
-							onclick="ajax:pageBean.bussinessShortcodeInfo()" 
-							update=":templatecontent"></bnu:navLink>
-						<bnu:navLink value="Initiator Account" 
-							onclick="ajax:pageBean.initiatorAccount()" 
-							update=":templatecontent"></bnu:navLink>
-						<bnu:navLink value="Periodic Reporting Shedule" 
-							onclick="ajax:pageBean.periodicReportingSchedule()" 
-							update=":templatecontent"></bnu:navLink>
+							<bnu:navLink></bnu:navLink>
+						
+							<bnu:navLink value="Bussiness shortcode Info" 
+								onclick="ajax:pageBean.bussinessShortcodeInfo()" 
+								update=":templatecontent"></bnu:navLink>
+							<bnu:navLink value="Initiator Account" 
+								onclick="ajax:pageBean.initiatorAccount()" 
+								update=":templatecontent"></bnu:navLink>
+						
+							<bnu:navLink value="Periodic Reporting Shedule" 
+								onclick="ajax:pageBean.periodicReportingSchedule()" 
+								update=":templatecontent"></bnu:navLink>
+						</ui:remove>
 					</bnu:dropMenu>
 
 
@@ -44,13 +48,11 @@
 							onclick="ajax:pageBean.sameHourComparisonInflow()" 
 							href="#{pageBean.approot}/reporting/same_hour_comparison_inflow.jsf"></bnu:navLink>
 						<bnu:navLink value="Periodical comparison - Outflow" 
-							onclick="ajax:pageBean.sameHourComparisonOutflow()"></bnu:navLink>
-						<bnu:navLink value="Per msisdn transaction count"
-							onclick="ajax:pageBean.perMsisdnTransactionCount()" 
-							update=":templatecontent"></bnu:navLink>
-						<bnu:navLink value="Same hour paybill transaction comparison"
+							onclick="ajax:pageBean.sameHourComparisonOutflow()"
+							href="#{pageBean.approot}/reporting/same_day_comparison_outflow.jsf"></bnu:navLink>
+						<bnu:navLink value="Transaction count comparison"
 							onclick="ajax:pageBean.sameHourPaybillTransactionComparison()" 
-							update=":templatecontent"></bnu:navLink>
+							href="#{pageBean.approot}/reporting/transaction_count_comparison.jsf"></bnu:navLink>
 					</bnu:dropMenu>
 
 
@@ -66,10 +68,12 @@
 							href="#{pageBean.approot}/reporting/detailedMobileMoneyOutflow.jsf"></bnu:navLink>
 					</bnu:dropMenu>
 
-					<bnu:navLink value="Report subscription"
-						onclick="ajax:pageBean.reportSubscription()" 
-						update=":templatecontent"></bnu:navLink>
-
+					<ui:remove>
+						<bnu:navLink value="Report subscription"
+							onclick="ajax:pageBean.reportSubscription()" 
+							update=":templatecontent"></bnu:navLink>
+					</ui:remove>
+					
 				</bnu:navbarLinks>
 				
 				
@@ -82,13 +86,15 @@
 			<bnu:navbarLinks pull="right">
 				<bnu:dropMenu value="My Account">
 					<bnu:navLink></bnu:navLink>
-					<bnu:navLink header="Account Settings"></bnu:navLink>
-					<bnu:navLink value="Profile Information" 
-						onclick="ajax:pageBean.profileInfo()" 
-						update=":templatecontent"></bnu:navLink>
+					<ui:remove>
+						<bnu:navLink header="Account Settings"></bnu:navLink>
+						<bnu:navLink value="Profile Information" 
+							onclick="ajax:pageBean.profileInfo()" 
+							update=":templatecontent"></bnu:navLink>
+					</ui:remove>
 					<bnu:navLink value="Change Password" 
 						onclick="ajax:pageBean.changePassword()" 
-						update=":templatecontent"></bnu:navLink>
+						href="#{pageBean.approot}/users/changepassword.jsf"></bnu:navLink>
 					<bnu:navLink></bnu:navLink>
 					<bnu:navLink value="Logout" href="#{pageBean.approot}/logout"></bnu:navLink>
 				</bnu:dropMenu>

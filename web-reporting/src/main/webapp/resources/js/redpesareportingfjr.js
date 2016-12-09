@@ -15,17 +15,25 @@ window.chartColors = {
 };
 
 var configHourToHour = {
-    type: 'line',
     data: {
         labels: [0],
         datasets: [{
-            label: "Revenue (Kes.)",
-            backgroundColor: window.chartColors.red,
-            borderColor: window.chartColors.red,
+        	type: 'line',
+            label: "Hourly Avg. (Kes.)",
+            backgroundColor: window.chartColors.orange,
+            borderColor: window.chartColors.orange,
+            data: [0],
+            fill: false,
+        },{
+        	type: 'bar',
+        	label: "Hourly Rev (Kes.)",
+            backgroundColor: window.chartColors.purple,
+            borderColor: window.chartColors.grey,
             data: [0],
             fill: false,
         }]
     },
+    type: 'bar',
     options: {
     	responsive : true,
 		tooltipTemplate : "<%if (label){%> <%=label%> Revenue : <%}%>KES. <%=formatD(value)%>",
@@ -84,6 +92,7 @@ var updateGraph  = function() {
     	success: function(respdata, textstatus, jqXHR) {
     		configHourToHour.data.labels = respdata.labels;
     		configHourToHour.data.datasets[0].data = respdata.datasets[0].data;
+    		configHourToHour.data.datasets[1].data = respdata.datasets[1].data
     	},
     });
 	
@@ -100,4 +109,5 @@ var initHourlyRevenue = function(){
 		var ctx = canvas_.getContext("2d");
 		window.myLine = new Chart(ctx, configHourToHour);
 	}
+	setTimeout(updateGraph, 2300);
 }

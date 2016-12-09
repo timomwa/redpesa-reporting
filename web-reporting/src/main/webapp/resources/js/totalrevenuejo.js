@@ -87,4 +87,5 @@ var initTotalRevenue = function(){
 		var ctx0 = canvastotalrevenue.getContext("2d");
 		window.totalrev_graph = new Chart(ctx0, configTotalRev);
 	}
+	setTimeout(updateTotalRevenueGraph, 1124);
 }

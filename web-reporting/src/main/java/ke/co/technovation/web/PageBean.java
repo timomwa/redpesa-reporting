@@ -15,7 +15,8 @@ public class PageBean implements Serializable {
 	
 	private String page = "home";
 	private String loginPage = "login";
-	private String approot = "/redpesa-reporting";
+	public static final String APPROOT = "/redpesa-reporting";
+	private String approot = APPROOT;
 	
 	
 
@@ -75,7 +76,7 @@ public class PageBean implements Serializable {
 		page = "profileInfo";
 	}
 	public void changePassword(){
-		page = "changePassword";
+		page = "changepassword";
 	}
 	
 	public void userManagement(){

@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" xmlns:bnu="http://bootsfaces.net/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+</h:head>
+
+<h:body>
+
+	<ui:composition>
+		<h:outputScript name="js/dailytransactionsb.js" />
+		<h:outputScript name="js/weeklytransactionsc.js" />
+		<bnu:panel class="content" id="formdd"
+			style="margin: auto; width: 100%; border: 0px solid green; padding: 5px;">
+			<h1>Transaction Count Comparison</h1>
+			<bnu:row style-class="top-buffer">
+				<bnu:column col-xs="14" col-sm="10" col-md="5" col-lg="6">
+					<bnu:thumbnail>
+						<bnu:canvas id="dailytransactions"></bnu:canvas>
+					</bnu:thumbnail>
+				</bnu:column>
+				
+				<bnu:column col-xs="14" col-sm="10" col-md="5" col-lg="6">
+					<bnu:thumbnail>
+						<bnu:canvas id="weeklytransactions"></bnu:canvas>
+					</bnu:thumbnail>
+				</bnu:column>
+			</bnu:row>
+
+		</bnu:panel>
+
+	</ui:composition>
+
+</h:body>
+</html>

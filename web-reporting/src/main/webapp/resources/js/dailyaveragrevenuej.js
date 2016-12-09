@@ -97,4 +97,5 @@ var initAverageDailyRevenue = function(){
 		var ctx0 = canvastotalrevenue.getContext("2d");
 		window.avg_daily_graph = new Chart(ctx0, dailyavgrev);
 	}
+	setTimeout(updateDailyAvgGraph, 1800);
 }
