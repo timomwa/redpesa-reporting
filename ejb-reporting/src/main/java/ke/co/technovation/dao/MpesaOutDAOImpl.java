@@ -43,7 +43,7 @@ public class MpesaOutDAOImpl implements MpesaOutDAOI {
 			}
 			
 			if(queryDTO.getMsisdn()!=null && !queryDTO.getMsisdn().isEmpty()){
-				query = query + " AND receiverPartyPublicName like :nameormsisdn";
+				query = query + " AND (receiverPartyPublicName like :nameormsisdn OR conversationID like :nameormsisdn OR transId like :nameormsisdn OR transactionReceipt like :nameormsisdn)";
 			}
 							
 			query = query + " order by transactionCompletedDateTime desc";

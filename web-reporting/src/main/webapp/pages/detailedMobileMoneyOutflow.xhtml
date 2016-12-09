@@ -26,10 +26,10 @@
 				</b:row>
 				<b:row>
 					<b:column span="2">
-						<h:outputText value="Msisdn / Name:" for="msisdn" />
+						<h:outputText value="Msisdn / Name / TxId / Winning Ticket:" for="msisdn" />
 					</b:column>
 					<b:column span="5">
-						<b:inputText placeholder="Msisdn or Name" id="msisdn"
+						<b:inputText placeholder="Msisdn, Tx Id, Ticket or Name" id="msisdn"
 							value="#{mobilemoneyTransBean.queryDTO.msisdn}" ajax="true"
 							autocomplete="false" update="@(.messagex)">
 							<f:facet name="prepend">
