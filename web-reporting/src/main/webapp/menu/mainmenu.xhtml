@@ -14,18 +14,18 @@
 				<bnu:navbarLinks>
 
 					<bnu:dropMenu value="Admin Panel">
-						<bnu:navLink value="User Management" 
-							onclick="ajax:pageBean.userManagement()" 
-							update=":templatecontent"></bnu:navLink>
+						
 						<bnu:navLink value="Email Settings" 
 							onclick="ajax:pageBean.emailSettings()" 
 							href="#{pageBean.approot}/configuration/emailSettings.jsf"></bnu:navLink>
 						<ui:remove>
+							<bnu:navLink value="User Management" 
+								onclick="ajax:pageBean.userManagement()" 
+								update=":templatecontent"></bnu:navLink>							
 							<bnu:navLink value="Audit Trail Report" 
-							onclick="ajax:pageBean.auditTrailReport()" 
-							update=":templatecontent"></bnu:navLink>
-							<bnu:navLink></bnu:navLink>
-						
+								onclick="ajax:pageBean.auditTrailReport()" 
+								update=":templatecontent"></bnu:navLink>
+							<bnu:navLink></bnu:navLink>						
 							<bnu:navLink value="Bussiness shortcode Info" 
 								onclick="ajax:pageBean.bussinessShortcodeInfo()" 
 								update=":templatecontent"></bnu:navLink>
@@ -41,9 +41,6 @@
 
 
 					<bnu:dropMenu value="Real-time Monitor">
-						<bnu:navLink value="Paybill Account number distribution" 
-							onclick="ajax:pageBean.perAccountTransactionCount()" 
-							href="#{pageBean.approot}/reporting/perAccountTransactionCount.jsf"></bnu:navLink>
 						<bnu:navLink value="Periodical comparison - Inflow" 
 							onclick="ajax:pageBean.sameHourComparisonInflow()" 
 							href="#{pageBean.approot}/reporting/same_hour_comparison_inflow.jsf"></bnu:navLink>
@@ -53,6 +50,9 @@
 						<bnu:navLink value="Transaction count comparison"
 							onclick="ajax:pageBean.sameHourPaybillTransactionComparison()" 
 							href="#{pageBean.approot}/reporting/transaction_count_comparison.jsf"></bnu:navLink>
+						<bnu:navLink value="Paybill Account number distribution" 
+							onclick="ajax:pageBean.perAccountTransactionCount()" 
+							href="#{pageBean.approot}/reporting/perAccountTransactionCount.jsf"></bnu:navLink>
 					</bnu:dropMenu>
 
 
