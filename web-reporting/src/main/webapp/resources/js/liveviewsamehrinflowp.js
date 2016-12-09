@@ -105,7 +105,7 @@ var updateLiveGraph  = function() {
     	window.liveviewsamehrinflow.update();
     }
     
-    setTimeout(updateLiveGraph, 15000);
+    setTimeout(updateLiveGraph, 1567);
 };
 
 var initLiveGraphInflow = function(){
