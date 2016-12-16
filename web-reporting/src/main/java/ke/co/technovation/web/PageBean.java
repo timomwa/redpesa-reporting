@@ -97,6 +97,9 @@ public class PageBean implements Serializable {
 	public void periodicReportingSchedule(){
 		page = "periodicReportingSchedule";
 	}
+	public void lotteryWinners(){
+		page = "lotteryWinners";
+	}
 	
 	//TODO store this in a session
 	public String getPage() {

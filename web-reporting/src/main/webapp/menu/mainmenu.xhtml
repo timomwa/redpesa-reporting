@@ -57,15 +57,18 @@
 
 
 					<bnu:dropMenu value="Mobile Money Queries">
-						<bnu:navLink  value="Per MSISDN Transaction report" 
-							onclick="ajax:pageBean.perMsisdnTransactionReport()" 
-							href="#{pageBean.approot}/reporting/perMsisdnTransactionReport.jsf"></bnu:navLink>
+						<bnu:navLink value="Lottery Winners"
+							onclick="ajax:pageBean.lotteryWinners()" 
+							href="#{pageBean.approot}/admin/lotteryWinners.jsf"></bnu:navLink>
 						<bnu:navLink value="Detailed Mobile money Transaction - Inflow"
 							onclick="ajax:pageBean.detailedMobileMoneyInflow()" 
 							href="#{pageBean.approot}/reporting/detailedMobileMoneyInflow.jsf"></bnu:navLink>
 						<bnu:navLink value="Detailed Mobile money Transaction - Outflow"
 							onclick="ajax:pageBean.detailedMobileMoneyOutflow()" 
 							href="#{pageBean.approot}/reporting/detailedMobileMoneyOutflow.jsf"></bnu:navLink>
+						<bnu:navLink  value="Per MSISDN Transaction report" 
+							onclick="ajax:pageBean.perMsisdnTransactionReport()" 
+							href="#{pageBean.approot}/reporting/perMsisdnTransactionReport.jsf"></bnu:navLink>
 					</bnu:dropMenu>
 
 					<ui:remove>

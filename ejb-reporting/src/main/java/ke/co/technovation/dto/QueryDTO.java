@@ -10,6 +10,8 @@ public class QueryDTO implements Serializable {
 	 */
 	private static final long serialVersionUID = 302828033885821626L;
 	
+	private String searchString;
+	private Integer drawNumber;
 	private String msisdn;
 	private Date datefrom;
 	private Date dateto;
@@ -47,11 +49,22 @@ public class QueryDTO implements Serializable {
 	public void setStart(Integer start) {
 		this.start = start;
 	}
+	public String getSearchString() {
+		return searchString;
+	}
+	public void setSearchString(String searchString) {
+		this.searchString = searchString;
+	}
+	public Integer getDrawNumber() {
+		return drawNumber;
+	}
+	public void setDrawNumber(Integer drawNumber) {
+		this.drawNumber = drawNumber;
+	}
 	@Override
 	public String toString() {
-		return "QueryDTO [start=" + start + ",limit=" + limit + ",msisdn=" + msisdn + ",\ndatefrom=" + datefrom + ",\ndateto=" + dateto + "]";
+		return "QueryDTO [searchString=" + searchString + ",\ndrawNumber=" + drawNumber + ",\nmsisdn=" + msisdn
+				+ ",\ndatefrom=" + datefrom + ",\ndateto=" + dateto + ",\nlimit=" + limit + ",\nstart=" + start + "]";
 	}
 	
-	
-
 }

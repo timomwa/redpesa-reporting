@@ -80,7 +80,7 @@ var configliveviewsamedayoutflow = {
                 },
                 scaleLabel: {
                     display: true,
-                    labelString:  'Payments (Kes.) 1k = 1000'
+                    labelString:  'Payments (Kes.) 1k = 1,000'
                 }
             }]
         }
@@ -104,7 +104,7 @@ var updateDayOutLiveGraph  = function() {
     	window.liveviewsamedayoutflow.update();
     }
     
-    setTimeout(updateDayOutLiveGraph, 15000);
+    setTimeout(updateDayOutLiveGraph, 1900);
 };
 
 var initLiveDayOutGraphInflow = function(){

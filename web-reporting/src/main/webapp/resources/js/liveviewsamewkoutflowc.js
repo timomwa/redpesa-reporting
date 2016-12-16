@@ -58,7 +58,7 @@ var configliveviewsamewkoutflow = {
                 display: true,
                 scaleLabel: {
                     display: true,
-                    labelString: 'Day'
+                    labelString: 'Week'
                 }
             }],
             yAxes: [{
@@ -80,7 +80,7 @@ var configliveviewsamewkoutflow = {
                 },
                 scaleLabel: {
                     display: true,
-                    labelString:  'Payments (Kes.) 1k = 1000'
+                    labelString:  'Payments (Kes.) 1k = 1,000'
                 }
             }]
         }

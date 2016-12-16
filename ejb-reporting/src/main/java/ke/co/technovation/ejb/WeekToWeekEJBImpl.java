@@ -10,7 +10,7 @@ import ke.co.technovation.dao.WeeklyMpesaInStatsDAOI;
 @Stateless
 public class WeekToWeekEJBImpl implements WeekToWeekEJBI{
 	
-private Logger logger = Logger.getLogger(getClass());
+	private Logger logger = Logger.getLogger(getClass());
 	
 	@Inject
 	private WeeklyMpesaInStatsDAOI weeklyMpesaInDAO;
