@@ -15,8 +15,9 @@
 
 					<bnu:dropMenu value="Admin Panel">
 						
+						<bnu:navLink value="SMS Configuration" 
+							href="#{pageBean.approot}/configuration/smsconfig.jsf"></bnu:navLink>
 						<bnu:navLink value="Email Settings" 
-							onclick="ajax:pageBean.emailSettings()" 
 							href="#{pageBean.approot}/configuration/emailSettings.jsf"></bnu:navLink>
 						<ui:remove>
 							<bnu:navLink value="User Management" 

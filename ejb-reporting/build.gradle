@@ -32,6 +32,7 @@ dependencies {
 	compile group: 'org.jboss', name: 'jboss-remote-naming', version: '2.0.4.Final'
 	compile group: 'org.jboss.xnio', name: 'xnio-nio', version: '3.2.0.Final'
 	compile group: 'org.jboss.remoting', name: 'jboss-remoting', version: '4.0.0.Final'
+	compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.3.6'
 }
 	
 configurations {

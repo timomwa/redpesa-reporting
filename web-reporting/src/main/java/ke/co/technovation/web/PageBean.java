@@ -101,6 +101,10 @@ public class PageBean implements Serializable {
 		page = "lotteryWinners";
 	}
 	
+	public void smsConfig(){
+		page = "smsConfig";
+	}
+	
 	//TODO store this in a session
 	public String getPage() {
 		final String temp_page = page;

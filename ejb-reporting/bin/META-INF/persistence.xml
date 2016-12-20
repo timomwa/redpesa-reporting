@@ -12,6 +12,8 @@
 		<class>ke.co.technovation.entity.UserRole</class>
 		<class>ke.co.technovation.entity.EmailConfiguration</class>
 		<class>ke.co.technovation.entity.Mail</class>
+		<class>ke.co.technovation.entity.SMS</class>
+		<class>ke.co.technovation.entity.SMSConfig</class>
 		<exclude-unlisted-classes>true</exclude-unlisted-classes>
 		<properties>
 			<property name="hibernate.hbm2ddl.auto" value="update" />
