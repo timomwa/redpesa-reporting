@@ -35,7 +35,7 @@ public class LoginBean implements Serializable {
 	
 	private Logger logger = Logger.getLogger(getClass());
 	
-	@Size(min=4, max=10)
+	@Size(min=4, max=100)
 	private String loginUsername;
 	
 	@Size(min=4, max=100)
